@@ -40,14 +40,14 @@ class SemesterReport extends BaseEntity
     private $submittedDateTime;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="text", nullable=true)
      */
     private $politicalEventsDescription;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="text", nullable=true)
      */
@@ -93,33 +93,33 @@ class SemesterReport extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPoliticalEventsDescription(): string
+    public function getPoliticalEventsDescription(): ?string
     {
         return $this->politicalEventsDescription;
     }
 
     /**
-     * @param string $politicalEventsDescription
+     * @param string|null $politicalEventsDescription
      */
-    public function setPoliticalEventsDescription(string $politicalEventsDescription): void
+    public function setPoliticalEventsDescription(?string $politicalEventsDescription): void
     {
         $this->politicalEventsDescription = $politicalEventsDescription;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getComments(): string
+    public function getComments(): ?string
     {
         return $this->comments;
     }
 
     /**
-     * @param string $comments
+     * @param string|null $comments
      */
-    public function setComments(string $comments): void
+    public function setComments(?string $comments): void
     {
         $this->comments = $comments;
     }

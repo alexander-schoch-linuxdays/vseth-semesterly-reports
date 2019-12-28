@@ -74,7 +74,7 @@ class LoginController extends BaseFormController
             $user = $provider->loadUserByUsername($organisation->getEmail());
             $this->loginUser($request, $user);
 
-            return $this->redirectToRoute("organisation");
+            return $this->redirectToRoute("organisation_view", ["organisation" => $organisation->getId()]);
         }
 
         return $this->render('login/login_code.html.twig');

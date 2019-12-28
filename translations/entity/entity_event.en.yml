@@ -1,11 +1,13 @@
 entity:
   name: 'Event'
+  plural: 'Events'
 
 help:
   financial_support_needed: "only for one-time, matchless events, see <a href=\"https://actives.vseth.ethz.ch/fuer-anerkannte-organisationen\">wiki</a>"
 
 semester: "semester"
 
+name: "name"
 name_de: "name (de)"
 name_en: "name (em)"
 description_de: "description (de)"

@@ -46,15 +46,18 @@ class OrganisationController extends BaseController
     public function newAction(Request $request)
     {
         //create the event
-        $event = new Organisation();
-        $event->setName('');
-        $event->setEmail('');
-        $event->setRelationSinceSemester(SemesterType::getCurrentSemester());
+        $organisation = new Organisation();
+        $organisation->setName('');
+        $organisation->setEmail('');
+        $organisation->setRelationSinceSemester(SemesterType::getCurrentSemester());
 
         //process form
         $myForm = $this->handleCreateForm(
             $request,
-            $event
+            $organisation,
+            function () use ($organisation) {
+                $organisation->generateAuthenticationCode();
+            }
         );
         if ($myForm instanceof Response) {
             return $myForm;

@@ -3,4 +3,4 @@ entity:
 
 name: "name"
 email: "E-Mail"
-relations_since_semester: "relations since"
+relation_since_semester: "relations since"

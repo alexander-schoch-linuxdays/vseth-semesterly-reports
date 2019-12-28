@@ -1,0 +1,9 @@
+view:
+  title: "Semesterly reports"
+  description: "Please describe your activities."
+  no_events_added_yet: "You have not added any event yet"
+  welcome: 'Hi {name}'
+  welcome_thanks: "Thank you for your effort for the students of ETH!"
+  welcome_help: |
+    Please add your events and then submit the semesterly report.
+    Based on its evaluation VSETH can keep you as a recognised organisation and enjoy the benefits we can provide for you.

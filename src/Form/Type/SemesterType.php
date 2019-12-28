@@ -21,13 +21,17 @@ class SemesterType extends AbstractType
     {
         // unix epoch was 1. Januar 1970; which would be FS70
         // hence FS2020 is 50*2 = 100
+
+        $current = self::getCurrentSemester();
+        $choices = [];
+        $padding = 4;
+        for ($i = -$padding; $i <= $padding; $i++) {
+            $semester = $current + $i;
+            $choices[self::semesterToString($semester)] = $semester;
+        }
+
         $resolver->setDefaults([
-            'choices' => [
-                'FS20' => 100,
-                'HS20' => 101,
-                'FS21' => 102,
-                'HS21' => 103,
-            ],
+            'choices' => $choices,
             'choice_translation_domain' => false,
         ]);
     }

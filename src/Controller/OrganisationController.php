@@ -12,6 +12,11 @@
 namespace App\Controller;
 
 use App\Controller\Administration\Base\BaseController;
+use App\Entity\Organisation;
+use App\Entity\SemesterReport;
+use App\Form\Type\SemesterType;
+use App\Security\Voter\Base\BaseVoter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,12 +26,38 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrganisationController extends BaseController
 {
     /**
-     * @Route("", name="organisation")
+     * @Route("/{organisation}", name="organisation_view")
      *
      * @return Response
      */
-    public function indexAction()
+    public function viewAction(Request $request, Organisation $organisation)
     {
-        return $this->render('organisation/index.html.twig');
+        $this->ensureAccessGranted($organisation);
+
+        $output = [];
+
+        $hasSemesterReport = $this->getDoctrine()->getRepository(SemesterReport::class)->findOneBy(["organisation" => $organisation->getId(), "semester" => SemesterType::getCurrentSemester()]);
+        if (!$hasSemesterReport) {
+            //allow semester creation
+            $semester = new SemesterReport();
+            $semester->setSubmittedDateTime(new \DateTime());
+            $semester->setOrganisation($organisation);
+            $semester->setSemester(SemesterType::getCurrentSemester());
+            $form = $this->handleCreateForm($request, $semester);
+
+            $output["submit_semester_report"] = $form->createView();
+        }
+
+        $output["organisation"] = $organisation;
+
+        return $this->render('organisation/view.html.twig', $output);
+    }
+
+    /**
+     * @param Organisation $event
+     */
+    private function ensureAccessGranted(Organisation $event)
+    {
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
     }
 }
