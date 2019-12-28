@@ -1,6 +1,7 @@
 index:
   title: 'organisations'
   description: 'all organisations'
+  no_organisations_added_yet: 'no organisations added yet'
 
 new:
   title: 'new organisation'

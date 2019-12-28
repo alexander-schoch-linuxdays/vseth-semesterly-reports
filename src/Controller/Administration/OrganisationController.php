@@ -35,7 +35,7 @@ class OrganisationController extends BaseController
         /** @var Organisation[] $organisations */
         $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy([], ['name' => 'DESC']);
 
-        return $this->render('administration/organisations.html.twig', ['organisations' => $organisations]);
+        return $this->render('administration/organisations.twig', ['organisations' => $organisations]);
     }
 
     /**

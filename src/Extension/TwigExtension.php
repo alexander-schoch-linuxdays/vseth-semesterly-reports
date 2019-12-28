@@ -12,6 +12,7 @@
 namespace App\Extension;
 
 use App\Enum\BooleanType;
+use App\Form\Type\SemesterType;
 use DateTime;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
@@ -38,6 +39,7 @@ class TwigExtension extends Twig_Extension
             new Twig_SimpleFilter('timeFormat', [$this, 'timeFormatFilter']),
             new Twig_SimpleFilter('dateTimeFormat', [$this, 'dateTimeFilter']),
             new Twig_SimpleFilter('booleanFormat', [$this, 'booleanFilter']),
+            new Twig_SimpleFilter('semesterFormat', [$this, 'semesterFilter']),
             new Twig_SimpleFilter('camelCaseToUnderscore', [$this, 'camelCaseToUnderscoreFilter']),
         ];
     }
@@ -63,6 +65,20 @@ class TwigExtension extends Twig_Extension
             $dateFormat = $this->translator->trans('time.format.date', [], 'framework');
 
             return $this->prependDayName($date) . ', ' . $date->format($dateFormat);
+        }
+
+        return '-';
+    }
+
+    /**
+     * @param $date
+     *
+     * @return string
+     */
+    public function semesterFilter($semester)
+    {
+        if (is_int($semester)) {
+            return SemesterType::semesterToString($semester);
         }
 
         return '-';
