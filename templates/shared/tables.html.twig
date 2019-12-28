@@ -9,6 +9,8 @@
                 <th>{{ "name"|trans({}, "entity_event") }}</th>
                 {% if manyFields %}
                     <th>{{ "description"|trans({}, "entity_event") }}</th>
+                    <th>{{ "start_date"|trans({}, "entity_event") }}</th>
+                    <th>{{ "end_date"|trans({}, "entity_event") }}</th>
                 {% endif %}
                 <th>{{ "location"|trans({}, "entity_event") }}</th>
                 <th>{{ "budget"|trans({}, "entity_event") }}</th>
@@ -26,6 +28,8 @@
                     <td>{{ event.name }}</td>
                     {% if manyFields %}
                         <td>{{ event.description }}</td>
+                        <td>{{ event.startDate|dateTimeFormat }}</td>
+                        <td>{{ event.endDate|dateTimeFormat }}</td>
                     {% endif %}
                     <td>{{ event.location }}</td>
                     <td>{{ event.budget }}</td>
