@@ -21,7 +21,7 @@
     <h2>{{ "entity.plural"|trans({}, "entity_event")}}</h2>
     <div class="btn-group mb-2">
         <a class="btn btn-secondary"
-           href="{{ path("administration_organisation_new") }}">
+           href="{{ path("organisation_event_new", {"organisation": organisation.id}) }}">
             {{ "new.title"|trans({}, "organisation_event") }}
         </a>
     </div>
@@ -37,7 +37,7 @@
                 <th>{{ "start_date"|trans({}, "entity_event") }}</th>
                 <th>{{ "end_date"|trans({}, "entity_event") }}</th>
                 <th>{{ "budget"|trans({}, "entity_event") }}</th>
-                <th>{{ "financial_support_needed"|trans({}, "entity_event") }}</th>
+                <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
                 <th class="minimal-width"></th>
             </tr>
             </thead>
@@ -55,11 +55,11 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-secondary"
-                               href="{{ path("administration_organisation_edit", {"organisation" : organisation.id}) }}">
+                               href="{{ path("organisation_event_edit", {"organisation" : organisation.id, "event": event.id}) }}">
                                 <i class="fal fa-pencil"></i>
                             </a>
                             <a class="btn btn-danger"
-                               href="{{ path("administration_organisation_remove", {"organisation" : organisation.id}) }}">
+                               href="{{ path("organisation_event_remove", {"organisation" : organisation.id, "event": event.id}) }}">
                                 <i class="fal fa-trash"></i>
                             </a>
                         </div>

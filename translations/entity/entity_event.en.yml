@@ -3,7 +3,7 @@ entity:
   plural: 'Events'
 
 help:
-  financial_support_needed: "only for one-time, matchless events, see <a href=\"https://actives.vseth.ethz.ch/fuer-anerkannte-organisationen\">wiki</a>"
+  need_financial_support: "only for one-time, matchless events"
 
 semester: "semester"
 
@@ -18,4 +18,4 @@ start_date: "start date & time"
 end_date: "end date & time"
 
 budget: "budget (\"turnover\")"
-financial_support_needed: "financial support VSETH needed"
+need_financial_support: "financial support VSETH needed"

@@ -42,6 +42,10 @@ class EventController extends BaseController
         $event = new Event();
         $event->setSemester(SemesterType::getCurrentSemester());
         $event->setOrganisation($organisation);
+        $event->setLocation("");
+        $event->setBudget(0);
+        $event->setNeedFinancialSupport(false);
+        $event->setStartDate(new \DateTime());
 
         //process form
         $myForm = $this->handleCreateForm(
@@ -56,7 +60,7 @@ class EventController extends BaseController
         }
 
         $this->organisation = $organisation;
-        return $this->render('administration/organisation/new.html.twig', ['form' => $myForm->createView()]);
+        return $this->render('organisation/event/new.html.twig', ['form' => $myForm->createView()]);
     }
 
     /**
@@ -80,7 +84,7 @@ class EventController extends BaseController
         }
 
         $this->organisation = $organisation;
-        return $this->render('administration/organisation/edit.html.twig', ['form' => $myForm->createView(), 'event' => $event]);
+        return $this->render('organisation/event/edit.html.twig', ['form' => $myForm->createView(), 'event' => $event]);
     }
 
     /**     *
@@ -93,11 +97,11 @@ class EventController extends BaseController
         //process form
         $form = $this->handleDeleteForm($request, $event);
         if ($form === null) {
-            return $this->redirectToRoute('organisation_events');
+            return $this->redirectToRoute('organisation_view', ["organisation" => $organisation->getId()]);
         }
 
         $this->organisation = $organisation;
-        return $this->render('administration/organisation/remove.html.twig', ['form' => $form->createView(), 'event' => $event]);
+        return $this->render('organisation/event/remove.html.twig', ['form' => $form->createView(), 'event' => $event]);
     }
 
     private function validateEvent(Event $event, TranslatorInterface $translator): bool
@@ -117,7 +121,6 @@ class EventController extends BaseController
      */
     protected function getIndexBreadcrumbs()
     {
-        // TODO: fix routes
         // test in frontend
         return array_merge(parent::getIndexBreadcrumbs(), [
             new Breadcrumb(

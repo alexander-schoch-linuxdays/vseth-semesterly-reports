@@ -11,4 +11,4 @@ ci_conformity: "You uphold the CI-Guidelines"
 added_all_events: "You added all your events (below)"
 
 political_events_description: "Events with political content"
-comments_help: "Comments"
+comments: "Comments"
