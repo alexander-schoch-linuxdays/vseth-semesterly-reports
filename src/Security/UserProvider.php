@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the nodika project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -12,11 +12,9 @@
 namespace App\Security;
 
 use App\Entity\Organisation;
-use App\Model\AuthenticationToken;
 use App\Model\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,18 +49,14 @@ class UserProvider implements UserProviderInterface
      * object can just be merged into some internal array of users / identity
      * map.
      *
-     * @param UserInterface $user
-     *
-     * @return UserInterface
      * @throws UnsupportedUserException if the account is not supported
      *
+     * @return UserInterface
      */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(
-                sprintf('Instances of "%s" are not supported.', \get_class($user))
-            );
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 
         return $this->loadUserByUsername($user->getUsername());
@@ -76,25 +70,23 @@ class UserProvider implements UserProviderInterface
      *
      * @param string $username The username
      *
-     * @return UserInterface
      * @throws UsernameNotFoundException if the user is not found
      *
+     * @return UserInterface
      */
     public function loadUserByUsername($username)
     {
-        if ($username === "ia@vseth.ethz.ch") {
-            return new User($this->adminPassword, $username, ["ROLE_ADMIN"]);
+        if ($username === 'ia@vseth.ethz.ch') {
+            return new User($this->adminPassword, $username, ['ROLE_ADMIN']);
         }
 
         /** @var Organisation|null $organisation */
         $organisation = $this->registry->getRepository(Organisation::class)->findOneBy(['email' => $username]);
         if (null !== $organisation) {
-            return new User($organisation->getAuthenticationCode(), $organisation->getEmail(), ["ROLE_ORGANISATION"]);
+            return new User($organisation->getAuthenticationCode(), $organisation->getEmail(), ['ROLE_ORGANISATION']);
         }
 
-        throw new UsernameNotFoundException(
-            sprintf('Username "%s" does not exist in UserProvider.', $username)
-        );
+        throw new UsernameNotFoundException(sprintf('Username "%s" does not exist in UserProvider.', $username));
     }
 
     /**

@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":309:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:3:{s:73:"App\Tests\Controller\LoginControllerTest::testPublicUrls with data set #0";d:10.542;s:73:"App\Tests\Controller\LoginControllerTest::testSecureUrls with data set #0";d:0.084;s:70:"App\Tests\Controller\LoginControllerTest::test404Urls with data set #0";d:2.716;}}}

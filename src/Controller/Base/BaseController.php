@@ -11,7 +11,6 @@
 
 namespace App\Controller\Base;
 
-use App\Entity\FrontendUser;
 use App\Model\Breadcrumb;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

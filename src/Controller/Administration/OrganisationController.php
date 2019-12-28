@@ -56,12 +56,12 @@ class OrganisationController extends BaseController
             $entry = [];
             $entry[] = $organisation->getName();
             $entry[] = $organisation->getEmail();
-            $entry[] = $this->generateUrl("login_code", ["code" => $organisation->getAuthenticationCode()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $entry[] = $this->generateUrl('login_code', ['code' => $organisation->getAuthenticationCode()], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $organisationArray[] = $entry;
         }
 
-        return $csvService->streamCsv("authentication_codes.csv", $organisationArray);
+        return $csvService->streamCsv('authentication_codes.csv', $organisationArray);
     }
 
     /**
@@ -71,7 +71,7 @@ class OrganisationController extends BaseController
      */
     public function eventsAction(Organisation $organisation)
     {
-        return $this->render("administration/organisation/events.twig", ['organisation' => $organisation]);
+        return $this->render('administration/organisation/events.twig', ['organisation' => $organisation]);
     }
 
     /**

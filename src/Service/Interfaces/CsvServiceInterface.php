@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the evoting.uzh.ch project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *

@@ -36,7 +36,7 @@ class OrganisationController extends BaseController
 
         $output = [];
 
-        $hasSemesterReport = $this->getDoctrine()->getRepository(SemesterReport::class)->findOneBy(["organisation" => $organisation->getId(), "semester" => SemesterType::getCurrentSemester()]);
+        $hasSemesterReport = $this->getDoctrine()->getRepository(SemesterReport::class)->findOneBy(['organisation' => $organisation->getId(), 'semester' => SemesterType::getCurrentSemester()]);
         if (!$hasSemesterReport) {
             //allow semester creation
             $semester = new SemesterReport();
@@ -46,22 +46,20 @@ class OrganisationController extends BaseController
             $hasSaved = false;
             $form = $this->handleCreateForm($request, $semester, function () use (&$hasSaved) {
                 $hasSaved = true;
+
                 return true;
             });
 
             if (!$hasSaved) {
-                $output["submit_semester_report"] = $form->createView();
+                $output['submit_semester_report'] = $form->createView();
             }
         }
 
-        $output["organisation"] = $organisation;
+        $output['organisation'] = $organisation;
 
         return $this->render('organisation/view.html.twig', $output);
     }
 
-    /**
-     * @param Organisation $event
-     */
     private function ensureAccessGranted(Organisation $event)
     {
         $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);

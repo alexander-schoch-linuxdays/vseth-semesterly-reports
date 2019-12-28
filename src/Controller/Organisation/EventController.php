@@ -42,7 +42,7 @@ class EventController extends BaseController
         $event = new Event();
         $event->setSemester(SemesterType::getCurrentSemester());
         $event->setOrganisation($organisation);
-        $event->setLocation("");
+        $event->setLocation('');
         $event->setBudget(0);
         $event->setNeedFinancialSupport(false);
         $event->setStartDate(new \DateTime());
@@ -60,14 +60,13 @@ class EventController extends BaseController
         }
 
         $this->organisation = $organisation;
+
         return $this->render('organisation/event/new.html.twig', ['form' => $myForm->createView()]);
     }
 
     /**
      * @Route("/{event}/clone", name="organisation_event_copy")
      *
-     * @param Organisation $organisation
-     * @param Event $event
      * @return Response
      */
     public function copyAction(Organisation $organisation, Event $event)
@@ -78,7 +77,7 @@ class EventController extends BaseController
         $manager->persist($clonedEvent);
         $manager->flush();
 
-        return $this->redirectToRoute("organisation_event_edit", ["organisation" => $organisation->getId(), "event" => $event->getId()]);
+        return $this->redirectToRoute('organisation_event_edit', ['organisation' => $organisation->getId(), 'event' => $event->getId()]);
     }
 
     /**
@@ -102,6 +101,7 @@ class EventController extends BaseController
         }
 
         $this->organisation = $organisation;
+
         return $this->render('organisation/event/edit.html.twig', ['form' => $myForm->createView(), 'event' => $event]);
     }
 
@@ -115,17 +115,19 @@ class EventController extends BaseController
         //process form
         $form = $this->handleDeleteForm($request, $event);
         if ($form === null) {
-            return $this->redirectToRoute('organisation_view', ["organisation" => $organisation->getId()]);
+            return $this->redirectToRoute('organisation_view', ['organisation' => $organisation->getId()]);
         }
 
         $this->organisation = $organisation;
+
         return $this->render('organisation/event/remove.html.twig', ['form' => $form->createView(), 'event' => $event]);
     }
 
     private function validateEvent(Event $event, TranslatorInterface $translator): bool
     {
-        if (strlen($event->getNameDe()) === 0 && strlen($event->getNameEn()) === 0) {
-            $this->displayError($translator->trans("new.error.no_name", [], "organisation_event"));
+        if (\mb_strlen($event->getNameDe()) === 0 && \mb_strlen($event->getNameEn()) === 0) {
+            $this->displayError($translator->trans('new.error.no_name', [], 'organisation_event'));
+
             return false;
         }
 
@@ -142,7 +144,7 @@ class EventController extends BaseController
         // test in frontend
         return array_merge(parent::getIndexBreadcrumbs(), [
             new Breadcrumb(
-                $this->generateUrl('organisation_view', ["organisation" => $this->organisation->getId()]),
+                $this->generateUrl('organisation_view', ['organisation' => $this->organisation->getId()]),
                 $this->getTranslator()->trans('view.title', [], 'organisation')
             ),
         ]);

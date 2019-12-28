@@ -60,81 +60,51 @@ class SemesterReport extends BaseEntity
      */
     private $organisation;
 
-    /**
-     * @return int
-     */
     public function getSemester(): int
     {
         return $this->semester;
     }
 
-    /**
-     * @param int $semester
-     */
     public function setSemester(int $semester): void
     {
         $this->semester = $semester;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getSubmittedDateTime(): \DateTime
     {
         return $this->submittedDateTime;
     }
 
-    /**
-     * @param \DateTime $submittedDateTime
-     */
     public function setSubmittedDateTime(\DateTime $submittedDateTime): void
     {
         $this->submittedDateTime = $submittedDateTime;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPoliticalEventsDescription(): ?string
     {
         return $this->politicalEventsDescription;
     }
 
-    /**
-     * @param string|null $politicalEventsDescription
-     */
     public function setPoliticalEventsDescription(?string $politicalEventsDescription): void
     {
         $this->politicalEventsDescription = $politicalEventsDescription;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComments(): ?string
     {
         return $this->comments;
     }
 
-    /**
-     * @param string|null $comments
-     */
     public function setComments(?string $comments): void
     {
         $this->comments = $comments;
     }
 
-    /**
-     * @return Organisation
-     */
     public function getOrganisation(): Organisation
     {
         return $this->organisation;
     }
 
-    /**
-     * @param Organisation $organisation
-     */
     public function setOrganisation(Organisation $organisation): void
     {
         $this->organisation = $organisation;

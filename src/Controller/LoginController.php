@@ -14,9 +14,7 @@ namespace App\Controller;
 use App\Controller\Base\BaseFormController;
 use App\Entity\Organisation;
 use App\Form\PasswordContainer\LoginType;
-use App\Model\User;
 use App\Security\UserProvider;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,9 +34,10 @@ class LoginController extends BaseFormController
     {
         return parent::getSubscribedServices() +
             [
-                'event_dispatcher' => EventDispatcherInterface::class
+                'event_dispatcher' => EventDispatcherInterface::class,
             ];
     }
+
     /**
      * @Route("", name="login")
      *
@@ -66,24 +65,19 @@ class LoginController extends BaseFormController
     public function codeAction(Request $request, string $code, UserProvider $provider)
     {
         /** @var Organisation $organisation */
-
-        $organisation = $this->getDoctrine()->getRepository(Organisation::class)->findOneBy(["authenticationCode" => $code]);
+        $organisation = $this->getDoctrine()->getRepository(Organisation::class)->findOneBy(['authenticationCode' => $code]);
         if ($organisation === null) {
             $this->displayError($this->getTranslator()->trans('login.error.invalid_auth_code', [], 'login'));
         } else {
             $user = $provider->loadUserByUsername($organisation->getEmail());
             $this->loginUser($request, $user);
 
-            return $this->redirectToRoute("organisation_view", ["organisation" => $organisation->getId()]);
+            return $this->redirectToRoute('organisation_view', ['organisation' => $organisation->getId()]);
         }
 
         return $this->render('login/login_code.html.twig');
     }
 
-    /**
-     * @param Request       $request
-     * @param UserInterface $user
-     */
     protected function loginUser(Request $request, UserInterface $user)
     {
         //login programmatically

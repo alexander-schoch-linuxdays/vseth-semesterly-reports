@@ -25,7 +25,7 @@ class SemesterType extends AbstractType
         $current = self::getCurrentSemester();
         $choices = [];
         $padding = 4;
-        for ($i = -$padding; $i <= $padding; $i++) {
+        for ($i = -$padding; $i <= $padding; ++$i) {
             $semester = $current + $i;
             $choices[self::semesterToString($semester)] = $semester;
         }

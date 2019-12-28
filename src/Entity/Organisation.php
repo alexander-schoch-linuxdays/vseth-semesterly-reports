@@ -108,9 +108,6 @@ class Organisation extends BaseEntity
         $this->relationSinceSemester = $relationSinceSemester;
     }
 
-    /**
-     * @return string
-     */
     public function getAuthenticationCode(): string
     {
         return $this->authenticationCode;
@@ -127,7 +124,6 @@ class Organisation extends BaseEntity
 
         return null;
     }
-
 
     /**
      * @var Event[]
@@ -154,7 +150,7 @@ class Organisation extends BaseEntity
     {
         $this->ensureFutureEventsPopulated();
 
-        return count($this->futureEvents);
+        return \count($this->futureEvents);
     }
 
     public function getFutureBudgetSum(): int

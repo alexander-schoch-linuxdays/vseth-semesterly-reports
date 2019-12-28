@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -41,6 +41,7 @@ class OrganisationVoter extends BaseVoter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         dump($token);
-        return in_array(User::ROLE_ADMIN, $token->getRoleNames()) || ($subject->getEmail() === $token->getUser()->getUsername());
+
+        return \in_array(User::ROLE_ADMIN, $token->getRoleNames(), true) || ($subject->getEmail() === $token->getUser()->getUsername());
     }
 }

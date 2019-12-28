@@ -103,9 +103,6 @@ class Event extends BaseEntity
      */
     private $organisation;
 
-    /**
-     * @return int
-     */
     public function getSemester(): int
     {
         return $this->semester;
@@ -119,9 +116,6 @@ class Event extends BaseEntity
         return SemesterType::semesterToString($this->getSemester());
     }
 
-    /**
-     * @param int $semester
-     */
     public function setSemester(int $semester): void
     {
         $this->semester = $semester;
@@ -135,33 +129,21 @@ class Event extends BaseEntity
         return $this->getNameDe() !== null ? $this->getNameDe() : $this->getNameEn();
     }
 
-    /**
-     * @return string|null
-     */
     public function getNameDe(): ?string
     {
         return $this->nameDe;
     }
 
-    /**
-     * @param string|null $nameDe
-     */
     public function setNameDe(?string $nameDe): void
     {
         $this->nameDe = $nameDe;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNameEn(): ?string
     {
         return $this->nameEn;
     }
 
-    /**
-     * @param string|null $nameEn
-     */
     public function setNameEn(?string $nameEn): void
     {
         $this->nameEn = $nameEn;
@@ -175,132 +157,83 @@ class Event extends BaseEntity
         return $this->getDescriptionDe() !== null ? $this->getDescriptionDe() : $this->getDescriptionEn();
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescriptionDe(): ?string
     {
         return $this->descriptionDe;
     }
 
-    /**
-     * @param string|null $descriptionDe
-     */
     public function setDescriptionDe(?string $descriptionDe): void
     {
         $this->descriptionDe = $descriptionDe;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescriptionEn(): ?string
     {
         return $this->descriptionEn;
     }
 
-    /**
-     * @param string|null $descriptionEn
-     */
     public function setDescriptionEn(?string $descriptionEn): void
     {
         $this->descriptionEn = $descriptionEn;
     }
 
-    /**
-     * @return string
-     */
     public function getLocation(): string
     {
         return $this->location;
     }
 
-    /**
-     * @param string $location
-     */
     public function setLocation(string $location): void
     {
         $this->location = $location;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
-    /**
-     * @param \DateTime|null $startDate
-     */
     public function setStartDate(?\DateTime $startDate): void
     {
         $this->startDate = $startDate;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
 
-    /**
-     * @param \DateTime|null $endDate
-     */
     public function setEndDate(?\DateTime $endDate): void
     {
         $this->endDate = $endDate;
     }
 
-    /**
-     * @return int
-     */
     public function getBudget(): int
     {
         return $this->budget;
     }
 
-    /**
-     * @param int $budget
-     */
     public function setBudget(int $budget): void
     {
         $this->budget = $budget;
     }
 
-    /**
-     * @return bool
-     */
     public function isNeedFinancialSupport(): bool
     {
         return $this->needFinancialSupport;
     }
 
-    /**
-     * @param bool $needFinancialSupport
-     */
     public function setNeedFinancialSupport(bool $needFinancialSupport): void
     {
         $this->needFinancialSupport = $needFinancialSupport;
     }
 
-    /**
-     * @return Organisation
-     */
     public function getOrganisation(): Organisation
     {
         return $this->organisation;
     }
 
-    /**
-     * @param Organisation $organisation
-     */
     public function setOrganisation(Organisation $organisation): void
     {
         $this->organisation = $organisation;
     }
-
 }
