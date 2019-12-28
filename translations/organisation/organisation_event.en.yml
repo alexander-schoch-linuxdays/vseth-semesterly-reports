@@ -1,6 +1,8 @@
 new:
   title: 'new event'
   description: 'add a new event'
+  error:
+    no_name: "Please provide the name it at least one language"
 
 edit:
   title: 'edit event'
