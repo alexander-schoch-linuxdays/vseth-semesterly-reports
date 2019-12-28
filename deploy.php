@@ -17,7 +17,7 @@ set('bin_dir', 'bin');
 set('var_dir', 'var');
 
 // Configuration
-set('repository', 'https://github.com/TheAlternativeZurich/feedback.git');
+set('repository', 'https://github.com/famoser/vseth-semesterly-reports.git');
 set('shared_files', ['.env.local', 'var/data.sqlite']);
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts');
 set('env_file_path', '.env');

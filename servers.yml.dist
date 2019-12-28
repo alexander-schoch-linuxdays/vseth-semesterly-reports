@@ -1,9 +1,9 @@
 .base: &base
-  hostname: feedback.thealternative.ch
+  hostname: semesterly-reports.vseth.famoser.ch
   user: USER
   http_user: USER
   branch: master
-  deploy_path: ~/www/feedback.thealternative.ch/{{stage}}
+  deploy_path: ~/www/semesterly-reports.vseth.famoser.ch/{{stage}}
   sshOptions:
     StrictHostKeyChecking: no
 
