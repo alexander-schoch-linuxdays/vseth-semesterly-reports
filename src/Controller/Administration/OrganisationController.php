@@ -64,7 +64,7 @@ class OrganisationController extends BaseController
     }
 
     /**
-     * @Route("/{event}/edit", name="administration_organisation_edit")
+     * @Route("/{organisation}/edit", name="administration_organisation_edit")
      *
      * @return Response
      */
@@ -80,7 +80,7 @@ class OrganisationController extends BaseController
     }
 
     /**     *
-     * @Route("/{event}/remove", name="administration_organisation_remove")
+     * @Route("/{organisation}/remove", name="administration_organisation_remove")
      *
      * @return Response
      */

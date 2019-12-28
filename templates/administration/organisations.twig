@@ -6,11 +6,9 @@
 {% trans_default_domain "administration_organisation" %}
 
 {% block single_content %}
-    <h2>{{ semester.name }}</h2>
-
     <div class="btn-group mb-2">
         <a class="btn btn-secondary"
-           href="{{ path("administration_organisation_new", {"semester": semester.id}) }}">
+           href="{{ path("administration_organisation_new") }}">
             {{ "new.title"|trans }}
         </a>
     </div>
