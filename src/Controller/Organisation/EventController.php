@@ -64,6 +64,24 @@ class EventController extends BaseController
     }
 
     /**
+     * @Route("/{event}/clone", name="organisation_event_copy")
+     *
+     * @param Organisation $organisation
+     * @param Event $event
+     * @return Response
+     */
+    public function copyAction(Organisation $organisation, Event $event)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $clonedEvent = clone $event;
+        $manager->persist($clonedEvent);
+        $manager->flush();
+
+        return $this->redirectToRoute("organisation_event_edit", ["organisation" => $organisation->getId(), "event" => $event->getId()]);
+    }
+
+    /**
      * @Route("/{event}/edit", name="organisation_event_edit")
      *
      * @return Response
