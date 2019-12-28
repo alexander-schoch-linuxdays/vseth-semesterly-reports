@@ -34,8 +34,6 @@
                 <th>{{ "semester"|trans({}, "entity_event") }}</th>
                 <th>{{ "name"|trans({}, "entity_event") }}</th>
                 <th>{{ "location"|trans({}, "entity_event") }}</th>
-                <th>{{ "start_date"|trans({}, "entity_event") }}</th>
-                <th>{{ "end_date"|trans({}, "entity_event") }}</th>
                 <th>{{ "budget"|trans({}, "entity_event") }}</th>
                 <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
                 <th class="minimal-width"></th>
@@ -48,8 +46,6 @@
                     <td>{{ event.semesterName }}</td>
                     <td>{{ event.name }}</td>
                     <td>{{ event.location }}</td>
-                    <td>{{ event.startDate|dateTimeFormat }}</td>
-                    <td>{{ event.endDate|dateTimeFormat }}</td>
                     <td>{{ event.budget }}</td>
                     <td>{{ event.needFinancialSupport|booleanFormat }}</td>
                     <td>
