@@ -27,274 +27,232 @@ class Event extends BaseEntity
     use IdTrait;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(type="text")
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $date;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $feedbackStartTime;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $feedbackEndTime;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $template;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $templateName;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $hasLecture = false;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $hasExercise = false;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $finalTemplateVersionLoaded = false;
-
-    /**
-     * @var Participant[]|ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="event")
-     */
-    private $participants;
-
-    /**
-     * @var Semester
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Semester", inversedBy="events")
+     * @ORM\Column(type="integer")
      */
     private $semester;
 
     /**
-     * Event constructor.
+     * @var string
+     *
+     * @ORM\Column(type="text")
      */
-    public function __construct()
-    {
-        $this->participants = new ArrayCollection();
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getFeedbackStartTime(): string
-    {
-        return $this->feedbackStartTime;
-    }
-
-    public function setFeedbackStartTime(string $feedbackStartTime): void
-    {
-        $this->feedbackStartTime = $feedbackStartTime;
-    }
-
-    public function getFeedbackEndTime(): string
-    {
-        return $this->feedbackEndTime;
-    }
-
-    public function setFeedbackEndTime(string $feedbackEndTime): void
-    {
-        $this->feedbackEndTime = $feedbackEndTime;
-    }
-
-    public function getTemplate(): string
-    {
-        return $this->template;
-    }
-
-    public function setTemplate(string $template): void
-    {
-        $this->template = $template;
-    }
-
-    public function getHasLecture(): bool
-    {
-        return $this->hasLecture;
-    }
-
-    public function setHasLecture(bool $hasLecture): void
-    {
-        $this->hasLecture = $hasLecture;
-    }
-
-    public function getHasExercise(): bool
-    {
-        return $this->hasExercise;
-    }
-
-    public function setHasExercise(bool $hasExercise): void
-    {
-        $this->hasExercise = $hasExercise;
-    }
+    private $nameDe;
 
     /**
-     * @return Participant[]|ArrayCollection
+     * @var string
+     *
+     * @ORM\Column(type="text")
      */
-    public function getParticipants()
-    {
-        return $this->participants;
-    }
+    private $nameEn;
 
-    public function getDate(): string
-    {
-        return $this->date;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $descriptionDe;
 
-    public function setDate(string $date): void
-    {
-        $this->date = $date;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $descriptionEn;
 
-    public function getTemplateName(): string
-    {
-        return $this->templateName;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $location;
 
-    public function setTemplateName(string $templateName): void
-    {
-        $this->templateName = $templateName;
-    }
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $startDate;
 
-    public function getSemester(): Semester
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $endDate;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $budget;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $needFinancialSupport;
+
+    /**
+     * @return int
+     */
+    public function getSemester(): int
     {
         return $this->semester;
     }
 
-    public function setSemester(Semester $semester): void
+    /**
+     * @param int $semester
+     */
+    public function setSemester(int $semester): void
     {
         $this->semester = $semester;
     }
 
     /**
-     * which categories should be displayed to the user.
-     *
-     * @return array
+     * @return string
      */
-    public function getCategoryWhitelist()
+    public function getNameDe(): string
     {
-        $base = ['event'];
-        if ($this->getHasExercise()) {
-            $base[] = 'exercise';
-        }
-        if ($this->getHasLecture()) {
-            $base[] = 'lecture';
-        }
-
-        return $base;
-    }
-
-    public function isFinalTemplateVersionLoaded(): bool
-    {
-        return $this->finalTemplateVersionLoaded;
-    }
-
-    public function setFinalTemplateVersionLoaded(bool $finalTemplateVersionLoaded): void
-    {
-        $this->finalTemplateVersionLoaded = $finalTemplateVersionLoaded;
+        return $this->nameDe;
     }
 
     /**
-     * @return bool
+     * @param string $nameDe
      */
-    public function feedbackHasStarted()
+    public function setNameDe(string $nameDe): void
     {
-        $now = new \DateTime();
-        $today = $now->format('Y-m-d');
-        $time = $now->format('H:i');
-
-        return $today > $this->getDate() || ($today === $this->getDate() && $time >= $this->getFeedbackStartTime());
+        $this->nameDe = $nameDe;
     }
 
     /**
      * @return string
      */
-    public function getTemplateFilePath()
+    public function getNameEn(): string
     {
-        return 'templates/' . $this->getTemplateName();
+        return $this->nameEn;
     }
 
     /**
-     * @param $publicDir
+     * @param string $nameEn
      */
-    public function loadTemplateIfSafe($publicDir)
+    public function setNameEn(string $nameEn): void
     {
-        if ($this->finalTemplateVersionLoaded) {
-            return;
-        }
-
-        if ($this->feedbackHasStarted()) {
-            $this->finalTemplateVersionLoaded = true;
-        }
-
-        $filePath = $publicDir . '/' . $this->getTemplateFilePath();
-        if (file_exists($filePath)) {
-            $this->template = file_get_contents($filePath);
-        }
+        $this->nameEn = $nameEn;
     }
 
     /**
-     * @return Answer[]
+     * @return string
      */
-    public function getPublicFeedback()
+    public function getDescriptionDe(): string
     {
-        //to preserve privacy, no feedback shown if not enough participants
-        if ($this->getParticipants()->count() <= 5) {
-            return [];
-        }
+        return $this->descriptionDe;
+    }
 
-        $feedback = [];
-        foreach ($this->getParticipants() as $participant) {
-            foreach ($participant->getAnswers() as $answer) {
-                if (!$answer->isPrivate()) {
-                    $feedback[] = $answer;
-                }
-            }
-        }
+    /**
+     * @param string $descriptionDe
+     */
+    public function setDescriptionDe(string $descriptionDe): void
+    {
+        $this->descriptionDe = $descriptionDe;
+    }
 
-        return $feedback;
+    /**
+     * @return string
+     */
+    public function getDescriptionEn(): string
+    {
+        return $this->descriptionEn;
+    }
+
+    /**
+     * @param string $descriptionEn
+     */
+    public function setDescriptionEn(string $descriptionEn): void
+    {
+        $this->descriptionEn = $descriptionEn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param string $location
+     */
+    public function setLocation(string $location): void
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getStartDate(): ?\DateTime
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param \DateTime|null $startDate
+     */
+    public function setStartDate(?\DateTime $startDate): void
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getEndDate(): ?\DateTime
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param \DateTime|null $endDate
+     */
+    public function setEndDate(?\DateTime $endDate): void
+    {
+        $this->endDate = $endDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBudget(): int
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param int $budget
+     */
+    public function setBudget(int $budget): void
+    {
+        $this->budget = $budget;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNeedFinancialSupport(): bool
+    {
+        return $this->needFinancialSupport;
+    }
+
+    /**
+     * @param bool $needFinancialSupport
+     */
+    public function setNeedFinancialSupport(bool $needFinancialSupport): void
+    {
+        $this->needFinancialSupport = $needFinancialSupport;
     }
 }
