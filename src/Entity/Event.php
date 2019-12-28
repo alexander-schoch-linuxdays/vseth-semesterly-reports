@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -13,7 +13,6 @@ namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -103,177 +102,111 @@ class Event extends BaseEntity
      */
     private $organisation;
 
-    /**
-     * @return int
-     */
     public function getSemester(): int
     {
         return $this->semester;
     }
 
-    /**
-     * @param int $semester
-     */
     public function setSemester(int $semester): void
     {
         $this->semester = $semester;
     }
 
-    /**
-     * @return string
-     */
     public function getNameDe(): string
     {
         return $this->nameDe;
     }
 
-    /**
-     * @param string $nameDe
-     */
     public function setNameDe(string $nameDe): void
     {
         $this->nameDe = $nameDe;
     }
 
-    /**
-     * @return string
-     */
     public function getNameEn(): string
     {
         return $this->nameEn;
     }
 
-    /**
-     * @param string $nameEn
-     */
     public function setNameEn(string $nameEn): void
     {
         $this->nameEn = $nameEn;
     }
 
-    /**
-     * @return string
-     */
     public function getDescriptionDe(): string
     {
         return $this->descriptionDe;
     }
 
-    /**
-     * @param string $descriptionDe
-     */
     public function setDescriptionDe(string $descriptionDe): void
     {
         $this->descriptionDe = $descriptionDe;
     }
 
-    /**
-     * @return string
-     */
     public function getDescriptionEn(): string
     {
         return $this->descriptionEn;
     }
 
-    /**
-     * @param string $descriptionEn
-     */
     public function setDescriptionEn(string $descriptionEn): void
     {
         $this->descriptionEn = $descriptionEn;
     }
 
-    /**
-     * @return string
-     */
     public function getLocation(): string
     {
         return $this->location;
     }
 
-    /**
-     * @param string $location
-     */
     public function setLocation(string $location): void
     {
         $this->location = $location;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
-    /**
-     * @param \DateTime|null $startDate
-     */
     public function setStartDate(?\DateTime $startDate): void
     {
         $this->startDate = $startDate;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
 
-    /**
-     * @param \DateTime|null $endDate
-     */
     public function setEndDate(?\DateTime $endDate): void
     {
         $this->endDate = $endDate;
     }
 
-    /**
-     * @return int
-     */
     public function getBudget(): int
     {
         return $this->budget;
     }
 
-    /**
-     * @param int $budget
-     */
     public function setBudget(int $budget): void
     {
         $this->budget = $budget;
     }
 
-    /**
-     * @return bool
-     */
     public function isNeedFinancialSupport(): bool
     {
         return $this->needFinancialSupport;
     }
 
-    /**
-     * @param bool $needFinancialSupport
-     */
     public function setNeedFinancialSupport(bool $needFinancialSupport): void
     {
         $this->needFinancialSupport = $needFinancialSupport;
     }
 
-    /**
-     * @return Organisation
-     */
     public function getOrganisation(): Organisation
     {
         return $this->organisation;
     }
 
-    /**
-     * @param Organisation $organisation
-     */
     public function setOrganisation(Organisation $organisation): void
     {
         $this->organisation = $organisation;

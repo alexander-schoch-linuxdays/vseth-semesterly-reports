@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -47,8 +47,8 @@ class LoadEvent extends BaseFixture
         $this->fillWithPremadeEvents($manager, $organisations[0]);
 
         $faker = $this->getFaker();
-        $organisationCount = count($organisations);
-        for ($i = 1; $i < $organisationCount; $i++) {
+        $organisationCount = \count($organisations);
+        for ($i = 1; $i < $organisationCount; ++$i) {
             /** @var Event[] $randomEvents */
             $randomEvents = $this->loadSomeRandoms($manager, $faker->randomFloat(0, 0, 10));
             foreach ($randomEvents as $randomEvent) {
@@ -64,28 +64,28 @@ class LoadEvent extends BaseFixture
     {
         $faker = $this->getFaker();
 
-        $lang = "de";
+        $lang = 'de';
         if ($faker->randomDigit < 5) {
-            $lang = "en";
-        } else if ($faker->randomDigit < 5) {
+            $lang = 'en';
+        } elseif ($faker->randomDigit < 5) {
             $lang = 'both';
         }
 
         $event = new Event();
         $event->setSemester(SemesterType::getCurrentSemester());
 
-        if ($lang == "de" || $lang == "both") {
+        if ($lang === 'de' || $lang === 'both') {
             $event->setNameDe($faker->text(40));
             $event->setDescriptionDe($faker->text(100));
         }
 
-        if ($lang == "en" || $lang == "both") {
+        if ($lang === 'en' || $lang === 'both') {
             $event->setNameEn($faker->text(40));
             $event->setDescriptionEn($faker->text(100));
         }
 
         $event->setStartDate($faker->dateTime);
-        $event->setEndDate($faker->dateTimeInInterval($event->getStartDate()->format("c"), '+4 hours'));
+        $event->setEndDate($faker->dateTimeInInterval($event->getStartDate()->format('c'), '+4 hours'));
         $event->setLocation($faker->text(20));
 
         if ($faker->randomDigit < 5) {
@@ -105,8 +105,8 @@ class LoadEvent extends BaseFixture
         /** @var Event[] $events */
         $events = $this->serializer->deserialize($json, Event::class . '[]', 'json');
 
-        $startDate = new \DateTime("today 18:00");
-        $endDate = new \DateTime("today 20:00");
+        $startDate = new \DateTime('today 18:00');
+        $endDate = new \DateTime('today 20:00');
         foreach ($events as $event) {
             $event->setOrganisation($organisation);
             $event->setSemester(SemesterType::getCurrentSemester());
@@ -114,8 +114,8 @@ class LoadEvent extends BaseFixture
             $event->setEndDate($endDate);
             $manager->persist($event);
 
-            $startDate = $startDate->add(new \DateInterval("P10D"));
-            $endDate = $endDate->add(new \DateInterval("P10D"));
+            $startDate = $startDate->add(new \DateInterval('P10D'));
+            $endDate = $endDate->add(new \DateInterval('P10D'));
         }
 
         $manager->flush();

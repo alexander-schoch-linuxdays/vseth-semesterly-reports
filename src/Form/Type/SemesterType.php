@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of the vseth-semesterly-reports project.
+ *
+ * (c) Florian Moser <git@famoser.ch>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Form\Type;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,9 +26,9 @@ class SemesterType extends AbstractType
                 'FS20' => 100,
                 'HS20' => 101,
                 'FS21' => 102,
-                'HS21' => 103
+                'HS21' => 103,
             ],
-            'choice_translation_domain' => false
+            'choice_translation_domain' => false,
         ]);
     }
 
@@ -29,9 +36,9 @@ class SemesterType extends AbstractType
     {
         $now = new \DateTime();
 
-        $currentYear = (int)($now)->format("Y");
+        $currentYear = (int)($now)->format('Y');
 
-        $isAutumnSemester = $now > new \DateTime("31.07." . $currentYear);
+        $isAutumnSemester = $now > new \DateTime('31.07.' . $currentYear);
         $years = $currentYear - 1970;
 
         return $years * 2 + 1 * $isAutumnSemester;
@@ -43,7 +50,7 @@ class SemesterType extends AbstractType
         $yearsSince1970 = (int)($semester / 2);
         $year = 1970 + $yearsSince1970 - 2000;
 
-        return ($isAutumnSemester ? "HS" : "FS") . $year;
+        return ($isAutumnSemester ? 'HS' : 'FS') . $year;
     }
 
     public function getParent()

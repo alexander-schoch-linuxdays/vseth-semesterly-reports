@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -60,49 +60,31 @@ class Organisation extends BaseEntity
         $this->events = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return int
-     */
     public function getRelationSinceSemester(): int
     {
         return $this->relationSinceSemester;
     }
 
-    /**
-     * @param int $relationSinceSemester
-     */
     public function setRelationSinceSemester(int $relationSinceSemester): void
     {
         $this->relationSinceSemester = $relationSinceSemester;

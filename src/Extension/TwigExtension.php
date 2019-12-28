@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -77,7 +77,7 @@ class TwigExtension extends Twig_Extension
      */
     public function semesterFilter($semester)
     {
-        if (is_int($semester)) {
+        if (\is_int($semester)) {
             return SemesterType::semesterToString($semester);
         }
 

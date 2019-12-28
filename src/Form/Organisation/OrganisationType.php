@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the vseth-semesterly-reports project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -11,19 +11,11 @@
 
 namespace App\Form\Organisation;
 
-use App\Entity\Event;
 use App\Entity\Organisation;
 use App\Form\Type\SemesterType;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,8 +23,8 @@ class OrganisationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, ["required" => false]);
-        $builder->add('email', EmailType::class, ["required" => false]);
+        $builder->add('name', TextType::class, ['required' => false]);
+        $builder->add('email', EmailType::class, ['required' => false]);
         $builder->add('relationSinceSemester', SemesterType::class);
     }
 
