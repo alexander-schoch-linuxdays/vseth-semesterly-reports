@@ -19,6 +19,7 @@ use App\Service\Interfaces\CsvServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/organisation")
@@ -54,7 +55,7 @@ class OrganisationController extends BaseController
             $entry = [];
             $entry[] = $organisation->getName();
             $entry[] = $organisation->getEmail();
-            $entry[] = $this->generateUrl("login_code", ["code" => $organisation->getAuthenticationCode()]);
+            $entry[] = $this->generateUrl("login_code", ["code" => $organisation->getAuthenticationCode()], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $organisationArray[] = $entry;
         }
