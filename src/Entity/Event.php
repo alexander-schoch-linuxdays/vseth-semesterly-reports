@@ -97,6 +97,13 @@ class Event extends BaseEntity
     private $needFinancialSupport;
 
     /**
+     * @var Organisation
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organisation", inversedBy="events")
+     */
+    private $organisation;
+
+    /**
      * @return int
      */
     public function getSemester(): int
@@ -254,5 +261,21 @@ class Event extends BaseEntity
     public function setNeedFinancialSupport(bool $needFinancialSupport): void
     {
         $this->needFinancialSupport = $needFinancialSupport;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisation(): Organisation
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param Organisation $organisation
+     */
+    public function setOrganisation(Organisation $organisation): void
+    {
+        $this->organisation = $organisation;
     }
 }

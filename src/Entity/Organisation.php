@@ -48,6 +48,19 @@ class Organisation extends BaseEntity
     private $relationSinceSemester;
 
     /**
+     * @var Event[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="organisation")
+     * @ORM\OrderBy({"date" = "DESC", "semester" = "DESC", "startDateTime" = "DESC", "endDateTime" = "DESC"})
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -93,5 +106,13 @@ class Organisation extends BaseEntity
     public function setRelationSinceSemester(int $relationSinceSemester): void
     {
         $this->relationSinceSemester = $relationSinceSemester;
+    }
+
+    /**
+     * @return Event[]|ArrayCollection
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

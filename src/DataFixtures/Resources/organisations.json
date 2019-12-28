@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Academic Surfclub",
+    "email": "academicsurfclub@vseth.ethz.ch",
+    "relationSinceSemester": 100
+  },
+  {
+    "name": "Akademischer Aviatikverein Zürich",
+    "email": "aviatikverein@vseth.ethz.ch",
+    "relationSinceSemester": 94
+  },
+  {
+    "name": "Analytics Club",
+    "email": "analyticsclub@vseth.ethz.ch",
+    "relationSinceSemester": 96
+  },
+  {
+    "name": "ASAZ",
+    "email": "asaz@vseth.ethz.ch",
+    "relationSinceSemester": 97
+  }
+]

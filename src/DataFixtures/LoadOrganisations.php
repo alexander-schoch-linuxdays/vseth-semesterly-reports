@@ -12,26 +12,40 @@
 namespace App\DataFixtures;
 
 use App\DataFixtures\Base\BaseFixture;
-use App\Entity\Semester;
+use App\Entity\Organisation;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Serializer\SerializerInterface;
 
-class LoadSemester extends BaseFixture
+class LoadOrganisations extends BaseFixture
 {
     const ORDER = 1;
+
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
+     * LoadEvent constructor.
+     */
+    public function __construct(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+    }
 
     /**
      * Load data fixtures with the passed EntityManager.
      */
     public function load(ObjectManager $manager)
     {
-        $semesters = ['HS 2018', 'FS 2019'];
-        $count = 0;
-        foreach ($semesters as $semesterName) {
-            $semester = new Semester();
-            $semester->setName($semesterName);
-            $semester->setCreationDate((new \DateTime('today'))->modify('+' . $count++ . ' day'));
-            $manager->persist($semester);
+        //prepare resources
+        $json = file_get_contents(__DIR__ . '/Resources/organisations.json');
+        $organisations = $this->serializer->deserialize($json, Organisation::class . '[]', 'json');
+
+        foreach ($organisations as $organisation) {
+            $manager->persist($organisation);
         }
+
         $manager->flush();
     }
 
