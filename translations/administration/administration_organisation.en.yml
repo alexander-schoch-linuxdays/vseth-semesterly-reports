@@ -1,0 +1,15 @@
+index:
+  title: 'organisations'
+  description: 'all organisations'
+
+new:
+  title: 'new organisation'
+  description: 'add a new organisation'
+
+edit:
+  title: 'edit organisation'
+  description: 'change the organisation'
+
+remove:
+  title: 'remove organisation'
+  description: 'remove the organisation and all associated data'
