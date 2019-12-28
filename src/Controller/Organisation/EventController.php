@@ -125,7 +125,7 @@ class EventController extends BaseController
 
     private function validateEvent(Event $event, TranslatorInterface $translator): bool
     {
-        if (\mb_strlen($event->getNameDe()) === 0 && \mb_strlen($event->getNameEn()) === 0) {
+        if (mb_strlen($event->getNameDe()) === 0 && mb_strlen($event->getNameEn()) === 0) {
             $this->displayError($translator->trans('new.error.no_name', [], 'organisation_event'));
 
             return false;
