@@ -1,5 +1,7 @@
 {% extends 'single_content_base.html.twig' %}
 
+{% import 'shared/tables.html.twig' as tables %}
+
 {% block title %}{{ "view.title"|trans }}{% endblock %}
 {% block description %}{{ "view.description"|trans }}{% endblock %}
 
@@ -13,7 +15,7 @@
 
     <hr class="mt-5 mb-5"/>
 
-    <h2>{{ "entity.name"|trans({}, "entity_semester_report")}}</h2>
+    <h2>{{ "entity.name"|trans({}, "entity_semester_report") }}</h2>
     {% if submit_semester_report is defined %}
         {{ form(submit_semester_report) }}
     {% else %}
@@ -22,52 +24,14 @@
 
     <hr class="mt-5 mb-5"/>
 
-    <h2>{{ "entity.plural"|trans({}, "entity_event")}}</h2>
+    <h2>{{ "entity.plural"|trans({}, "entity_event") }}</h2>
     <div class="btn-group mb-2">
         <a class="btn btn-secondary"
            href="{{ path("organisation_event_new", {"organisation": organisation.id}) }}">
             {{ "new.title"|trans({}, "organisation_event") }}
         </a>
     </div>
-    {% if organisation.events|length == 0 %}
-        <p>{{ "view.no_events_added_yet"|trans }}</p>
-    {% else %}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ "semester"|trans({}, "entity_event") }}</th>
-                <th>{{ "name"|trans({}, "entity_event") }}</th>
-                <th>{{ "location"|trans({}, "entity_event") }}</th>
-                <th>{{ "budget"|trans({}, "entity_event") }}</th>
-                <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
-                <th class="minimal-width"></th>
-            </tr>
-            </thead>
-            <tbody>
 
-            {% for event in organisation.events %}
-                <tr>
-                    <td>{{ event.semesterName }}</td>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.location }}</td>
-                    <td>{{ event.budget }}</td>
-                    <td>{{ event.needFinancialSupport|booleanFormat }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-secondary"
-                               href="{{ path("organisation_event_edit", {"organisation" : organisation.id, "event": event.id}) }}">
-                                <i class="fal fa-pencil"></i>
-                            </a>
-                            <a class="btn btn-danger"
-                               href="{{ path("organisation_event_remove", {"organisation" : organisation.id, "event": event.id}) }}">
-                                <i class="fal fa-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+    {{ tables.events(organisation, true) }}
 {% endblock %}
 

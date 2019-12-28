@@ -170,6 +170,14 @@ class Event extends BaseEntity
     /**
      * @return string|null
      */
+    public function getDescription()
+    {
+        return $this->getDescriptionDe() !== null ? $this->getDescriptionDe() : $this->getDescriptionEn();
+    }
+
+    /**
+     * @return string|null
+     */
     public function getDescriptionDe(): ?string
     {
         return $this->descriptionDe;

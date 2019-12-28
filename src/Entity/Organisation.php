@@ -13,6 +13,7 @@ namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
+use App\Form\Type\SemesterType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -113,6 +114,72 @@ class Organisation extends BaseEntity
     public function getAuthenticationCode(): string
     {
         return $this->authenticationCode;
+    }
+
+    public function getCurrentSemesterReport(): ?SemesterReport
+    {
+        $currentSemester = SemesterType::getCurrentSemester();
+        foreach ($this->getSemesterReports() as $semesterReport) {
+            if ($semesterReport->getSemester() === $currentSemester) {
+                return $semesterReport;
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * @var Event[]
+     */
+    private $futureEvents = null;
+
+    private function ensureFutureEventsPopulated()
+    {
+        if ($this->futureEvents !== null) {
+            return;
+        }
+
+        $this->futureEvents = [];
+
+        $currentSemester = SemesterType::getCurrentSemester();
+        foreach ($this->getEvents() as $event) {
+            if ($event->getSemester() >= $currentSemester) {
+                $this->futureEvents[] = $event;
+            }
+        }
+    }
+
+    public function getFutureEventCount(): int
+    {
+        $this->ensureFutureEventsPopulated();
+
+        return count($this->futureEvents);
+    }
+
+    public function getFutureBudgetSum(): int
+    {
+        $this->ensureFutureEventsPopulated();
+
+        $budgetSum = 0;
+        foreach ($this->futureEvents as $futureEvent) {
+            $budgetSum += $futureEvent->getBudget();
+        }
+
+        return $budgetSum;
+    }
+
+    public function futureFinancialSupport(): bool
+    {
+        $this->ensureFutureEventsPopulated();
+
+        foreach ($this->futureEvents as $futureEvent) {
+            if ($futureEvent->isNeedFinancialSupport()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

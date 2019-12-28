@@ -39,6 +39,7 @@ class OrganisationController extends BaseController
 
         return $this->render('administration/organisations.twig', ['organisations' => $organisations]);
     }
+
     /**
      * @Route("/export", name="administration_organisations_export")
      *
@@ -61,6 +62,16 @@ class OrganisationController extends BaseController
         }
 
         return $csvService->streamCsv("authentication_codes.csv", $organisationArray);
+    }
+
+    /**
+     * @Route("/{organisation}/events", name="administration_organisations_events")
+     *
+     * @return Response
+     */
+    public function eventsAction(Organisation $organisation)
+    {
+        return $this->render("administration/organisation/events.twig", ['organisation' => $organisation]);
     }
 
     /**

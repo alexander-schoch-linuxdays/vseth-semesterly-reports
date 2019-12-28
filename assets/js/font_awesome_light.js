@@ -8,6 +8,7 @@ import {faEye} from '@fortawesome/pro-light-svg-icons/faEye'
 //result
 import {faChartArea} from '@fortawesome/pro-light-svg-icons/faChartArea'
 import {faEnvelope} from '@fortawesome/pro-light-svg-icons/faEnvelope'
+import {faUser} from '@fortawesome/pro-light-svg-icons/faUser'
 
 // add icons
-library.add(faPlus, faTrash, faPencil, faEye, faChartArea, faEnvelope);
+library.add(faPlus, faTrash, faPencil, faEye, faChartArea, faEnvelope, faUser);

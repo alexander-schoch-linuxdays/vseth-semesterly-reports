@@ -1,0 +1,52 @@
+{% macro events(organisation, showEditButtons = false, manyFields = false) %}
+    {% if organisation.events|length == 0 %}
+        <p>{{ "view.no_events_added_yet"|trans({}, "organisation") }}</p>
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ "semester"|trans({}, "entity_event") }}</th>
+                <th>{{ "name"|trans({}, "entity_event") }}</th>
+                {% if manyFields %}
+                    <th>{{ "description"|trans({}, "entity_event") }}</th>
+                {% endif %}
+                <th>{{ "location"|trans({}, "entity_event") }}</th>
+                <th>{{ "budget"|trans({}, "entity_event") }}</th>
+                <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
+                {% if showEditButtons %}
+                    <th class="minimal-width"></th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for event in organisation.events %}
+                <tr>
+                    <td>{{ event.semesterName }}</td>
+                    <td>{{ event.name }}</td>
+                    {% if manyFields %}
+                        <td>{{ event.description }}</td>
+                    {% endif %}
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.budget }}</td>
+                    <td>{{ event.needFinancialSupport|booleanFormat }}</td>
+                    {% if showEditButtons %}
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-secondary"
+                                   href="{{ path("organisation_event_edit", {"organisation" : organisation.id, "event": event.id}) }}">
+                                    <i class="fal fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-danger"
+                                   href="{{ path("organisation_event_remove", {"organisation" : organisation.id, "event": event.id}) }}">
+                                    <i class="fal fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endmacro %}

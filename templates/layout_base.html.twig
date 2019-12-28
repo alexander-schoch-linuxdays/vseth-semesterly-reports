@@ -96,19 +96,19 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
                 {% if is_granted('ROLE_ADMIN') %}
-                <ul class="navbar-nav">
-                    {{ own_macros.menu_entry("index.title"|trans({}, "administration_organisation"), path("administration_organisations")) }}
-                </ul>
+                    <ul class="navbar-nav">
+                        {{ own_macros.menu_entry("index.title"|trans({}, "administration_organisation"), path("administration_organisations")) }}
+                    </ul>
                 {% elseif is_granted('ROLE_ORGANISATION') %}
                 {% endif %}
 
-                    <ul class="navbar-nav ml-auto">
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATION') %}
-                            {{ own_macros.menu_icon_entry("fas fa-sign-out", path("login_logout")) }}
-                        {% else %}
-                            {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
-                        {% endif %}
-                    </ul>
+                <ul class="navbar-nav ml-auto">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATION') %}
+                        {{ own_macros.menu_icon_entry("fas fa-sign-out", path("login_logout")) }}
+                    {% else %}
+                        {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
@@ -156,17 +156,9 @@
         </div>
     {% endif %}
 
-    <section class="content">
-        <div class="{% block container_class %}container{% endblock %}">
-            <div class="p-1 pt-5 pb-4">
-                <h1>{{ block("title") }}</h1>
-                <p class="lead">{% block description %}{% endblock %}</p>
-            </div>
-            {% block content %}
+    {% block content %}
 
-            {% endblock %}
-        </div>
-    </section>
+    {% endblock %}
 </div>
 
 <script src="{{ asset('dist/runtime.js') }}"></script>
