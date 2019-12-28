@@ -7,3 +7,4 @@ view:
   welcome_help: |
     Please add your events and then submit the semesterly report.
     Based on its evaluation VSETH can keep you as a recognised organisation and enjoy the benefits we can provide for you.
+  semester_report_submitted: "The semester report was submitted, and will be checked by us. You can still edit your events if you want to."

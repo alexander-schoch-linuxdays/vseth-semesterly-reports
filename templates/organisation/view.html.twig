@@ -14,7 +14,11 @@
     <hr class="mt-5 mb-5"/>
 
     <h2>{{ "entity.name"|trans({}, "entity_semester_report")}}</h2>
-    {{ form(submit_semester_report) }}
+    {% if submit_semester_report is defined %}
+        {{ form(submit_semester_report) }}
+    {% else %}
+        <p class="alert alert-success">{{ "view.semester_report_submitted"|trans }}</p>
+    {% endif %}
 
     <hr class="mt-5 mb-5"/>
 

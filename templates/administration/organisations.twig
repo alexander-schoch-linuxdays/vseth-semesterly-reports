@@ -11,6 +11,9 @@
            href="{{ path("administration_organisation_new") }}">
             {{ "new.title"|trans }}
         </a>
+        <a class="btn btn-outline-secondary" href="{{ path('administration_organisations_export') }}">
+            {{ "index.export_authentication_links"|trans }}
+        </a>
     </div>
     {% if organisations|length == 0 %}
         <p>{{ "index.no_organisations_added_yet"|trans }}</p>

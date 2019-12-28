@@ -43,9 +43,15 @@ class OrganisationController extends BaseController
             $semester->setSubmittedDateTime(new \DateTime());
             $semester->setOrganisation($organisation);
             $semester->setSemester(SemesterType::getCurrentSemester());
-            $form = $this->handleCreateForm($request, $semester);
+            $hasSaved = false;
+            $form = $this->handleCreateForm($request, $semester, function () use (&$hasSaved) {
+                $hasSaved = true;
+                return true;
+            });
 
-            $output["submit_semester_report"] = $form->createView();
+            if (!$hasSaved) {
+                $output["submit_semester_report"] = $form->createView();
+            }
         }
 
         $output["organisation"] = $organisation;
