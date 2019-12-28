@@ -85,39 +85,34 @@
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 
-{% if is_granted('ROLE_ADMIN') %}
-    <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="{{ path("index") }}">{{ "index.title"|trans({}, "index") }}</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        {{ own_macros.menu_entry("index.title"|trans({}, "administration_organisation"), path("administration_organisations")) }}
-                    </ul>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path("index") }}">{{ "index.title"|trans({}, "index") }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+                {% if is_granted('ROLE_ADMIN') %}
+                <ul class="navbar-nav">
+                    {{ own_macros.menu_entry("index.title"|trans({}, "administration_organisation"), path("administration_organisations")) }}
+                </ul>
+                {% elseif is_granted('ROLE_ORGANISATION') %}
+                {% endif %}
 
                     <ul class="navbar-nav ml-auto">
-                        {{ own_macros.menu_icon_entry("fas fa-sign-out", path("login_logout")) }}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATION') %}
+                            {{ own_macros.menu_icon_entry("fas fa-sign-out", path("login_logout")) }}
+                        {% else %}
+                            {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
+                        {% endif %}
                     </ul>
-                </div>
             </div>
-        </nav>
-    </header>
-
-{% else %}
-    <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-            <div class="container">
-                <ul class="navbar-nav ml-auto">
-                    {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
-                </ul>
-            </div>
-        </nav>
-    </header>
-{% endif %}
+        </div>
+    </nav>
+</header>
 
 <div class="content-wrapper">
     {% if app.session.flashbag.keys|length > 0 %}

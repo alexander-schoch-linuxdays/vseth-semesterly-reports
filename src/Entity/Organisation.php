@@ -15,6 +15,7 @@ use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 
 /**
  * an event determines how the questionnaire looks like.
@@ -48,6 +49,13 @@ class Organisation extends BaseEntity
     private $relationSinceSemester;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $authenticationCode;
+
+    /**
      * @var Event[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Event", mappedBy="organisation")
@@ -55,9 +63,18 @@ class Organisation extends BaseEntity
      */
     private $events;
 
+    /**
+     * @var SemesterReport[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="SemesterReport", mappedBy="organisation")
+     * @ORM\OrderBy({"semester" = "DESC"})
+     */
+    private $semesterReports;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->semesterReports = new ArrayCollection();
     }
 
     public function getName(): string
@@ -91,10 +108,42 @@ class Organisation extends BaseEntity
     }
 
     /**
+     * @return string
+     */
+    public function getAuthenticationCode(): string
+    {
+        return $this->authenticationCode;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function setAuthenticationCode(string $authenticationCode)
+    {
+        $this->authenticationCode = $authenticationCode;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function generateAuthenticationCode()
+    {
+        $this->authenticationCode = Uuid::uuid4();
+    }
+
+    /**
      * @return Event[]|ArrayCollection
      */
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * @return SemesterReport[]|ArrayCollection
+     */
+    public function getSemesterReports()
+    {
+        return $this->semesterReports;
     }
 }

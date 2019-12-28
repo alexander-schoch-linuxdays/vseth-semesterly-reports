@@ -12,18 +12,33 @@
 namespace App\Controller;
 
 use App\Controller\Base\BaseFormController;
+use App\Entity\Organisation;
 use App\Form\PasswordContainer\LoginType;
-use App\Model\PasswordContainer;
+use App\Model\User;
+use App\Security\UserProvider;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/login")
  */
 class LoginController extends BaseFormController
 {
+    public static function getSubscribedServices()
+    {
+        return parent::getSubscribedServices() +
+            [
+                'event_dispatcher' => EventDispatcherInterface::class
+            ];
+    }
     /**
      * @Route("", name="login")
      *
@@ -37,10 +52,46 @@ class LoginController extends BaseFormController
         }
 
         // create login form
-        $form = $this->createForm(LoginType::class, new PasswordContainer(''));
+        $form = $this->createForm(LoginType::class);
         $form->add('form.login', SubmitType::class, ['translation_domain' => 'login', 'label' => 'login.do_login']);
 
         return $this->render('login/login.html.twig', ['form' => $form->createView(), 'error_occurred' => $errorOccurred]);
+    }
+
+    /**
+     * @Route("/code/{code}", name="login_code")
+     *
+     * @return Response
+     */
+    public function codeAction(Request $request, string $code, UserProvider $provider)
+    {
+        /** @var Organisation $organisation */
+
+        $organisation = $this->getDoctrine()->getRepository(Organisation::class)->findOneBy(["authenticationCode" => $code]);
+        if ($organisation === null) {
+            $this->displayError($this->getTranslator()->trans('login.error.invalid_auth_code', [], 'login'));
+        } else {
+            $user = $provider->loadUserByUsername($organisation->getEmail());
+            $this->loginUser($request, $user);
+
+            return $this->redirectToRoute("organisation");
+        }
+
+        return $this->render('login/login_code.html.twig');
+    }
+
+    /**
+     * @param Request       $request
+     * @param UserInterface $user
+     */
+    protected function loginUser(Request $request, UserInterface $user)
+    {
+        //login programmatically
+        $token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
     }
 
     /**

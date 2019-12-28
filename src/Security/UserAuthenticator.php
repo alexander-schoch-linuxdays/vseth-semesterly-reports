@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterface;
 
-class PasswordAuthenticator implements SimpleFormAuthenticatorInterface
+class UserAuthenticator implements SimpleFormAuthenticatorInterface
 {
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {

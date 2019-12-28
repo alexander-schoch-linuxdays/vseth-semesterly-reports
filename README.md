@@ -7,3 +7,7 @@ Introduction
 Goals:
  - create a semesterly report quick & informs about VSETH structures.
  - evaluate semesterly reports efficiently & export the information.
+ 
+ Testing:
+ - use /login/code/1234 to login as an organisation
+ - use /login ia@vseth.ethz.ch secret to login as an administrator

@@ -1,3 +1,13 @@
 index:
   title: "Semesterly reports"
   description: "Please describe your activities."
+  please_login: 'To login, please use the link in the email you have received.'
+
+overview:
+  title: "Semesterly reports"
+  description: "Please describe your activities."
+  welcome: 'Hi {name}'
+  welcome_thanks: "Thank you for your effort for the students of ETH!"
+  welcome_help: >
+    Please add your events and then submit the semesterly report.\n\n
+    Based on its evaluation VSETH can keep you as a recognised organisation and <a href="https://actives.vseth.ethz.ch/fuer-anerkannte-organisationen">enjoy the benefits we can provide for you</a>.
