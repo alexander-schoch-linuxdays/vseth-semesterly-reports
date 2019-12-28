@@ -2,15 +2,18 @@ entity:
   name: 'Event'
 
 help:
-  template_name: 'this defines which questions are asked. the templates are located within the public/templates directory on the server'
-  has_exercise: 'if enabled, additional questions about the exercise are asked'
-  has_lecture: 'if enabled, additional questions about the lecture are asked'
+  financial_support_needed: "only for one-time, matchless events, see <a href=\"https://actives.vseth.ethz.ch/fuer-anerkannte-organisationen\">wiki</a>"
 
-name: "name"
-date: "date"
-feedback_start_time: "feedback start time"
-feedback_end_time: "feedback end time"
-feedback_time: "feedback open"
-has_exercise: "contains/is an exercise"
-has_lecture: "contains/is a talk"
-template_name: "questionnaire template to use"
+semester: "semester"
+
+name_de: "name (de)"
+name_en: "name (em)"
+description_de: "description (de)"
+description_en: "description (em)"
+location: "location"
+
+start_date: "start date & time"
+end_date: "end date & time"
+
+budget: "budget (\"turnover\")"
+financial_support_needed: "financial support VSETH needed"
