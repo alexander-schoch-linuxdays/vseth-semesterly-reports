@@ -1,0 +1,18 @@
+app:
+  resource: "../src/Controller/"
+  type:     annotation
+
+app_administration:
+  resource: "../src/Controller/Administration/"
+  type:     annotation
+  prefix:   /administration
+
+app_administration_semester:
+  resource: "../src/Controller/Administration/Semester"
+  type:     annotation
+  prefix:   /administration/{semester}
+
+app_administration_semester_event:
+  resource: "../src/Controller/Administration/Semester/Event"
+  type:     annotation
+  prefix:   /administration/{semester}/event/{event}

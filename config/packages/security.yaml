@@ -1,0 +1,45 @@
+security:
+  access_decision_manager:
+    strategy: unanimous
+
+  providers:
+    password_container_provider:
+      id: App\Security\PasswordContainerProvider
+
+  firewalls:
+    # disables authentication for assets and the profiler
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    # main firewall for logged in users
+    main:
+      pattern:   ^/
+      provider: password_container_provider
+      simple_form:
+        authenticator: App\Security\PasswordAuthenticator
+        login_path: login
+        check_path: login_check
+        default_target_path: administration
+        csrf_token_generator: security.csrf.token_manager
+        # field names for the username and password fields
+        username_parameter: login[password]
+        password_parameter: login[password]
+      logout:
+        path: login_logout
+      anonymous:    true
+      remember_me:
+        secret: '%env(APP_SECRET)%'
+        lifetime: 604800
+        path: /
+        always_remember_me: true
+
+  access_control:
+  #enable login
+  - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+  #secure admin part
+  - { path: ^/administration, role: ROLE_ADMIN }
+  #allow debugging routes
+  - { path: ^/_, role: IS_AUTHENTICATED_ANONYMOUSLY }
+  #level1: user
+  - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,0 +1,8 @@
+login:
+  title: 'Login'
+  description: 'welcome back!'
+  password_helper: 'Consult the p21 wiki if you need help'
+  password_config: 'Password wrong? It is defined in the file located at WEBPAGE_ROOT/../.env.'
+  do_login: "login"
+  error:
+    login_failed: 'login failed'
