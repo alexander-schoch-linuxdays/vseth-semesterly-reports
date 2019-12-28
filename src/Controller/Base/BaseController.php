@@ -78,14 +78,6 @@ class BaseController extends AbstractController
     }
 
     /**
-     * @return FrontendUser|null
-     */
-    protected function getUser()
-    {
-        return parent::getUser();
-    }
-
-    /**
      * @return Breadcrumb[]|array
      */
     protected function getIndexBreadcrumbs()

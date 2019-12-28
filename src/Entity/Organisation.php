@@ -51,7 +51,7 @@ class Organisation extends BaseEntity
      * @var Event[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Event", mappedBy="organisation")
-     * @ORM\OrderBy({"date" = "DESC", "semester" = "DESC", "startDateTime" = "DESC", "endDateTime" = "DESC"})
+     * @ORM\OrderBy({"semester" = "DESC", "startDate" = "DESC", "endDate" = "DESC"})
      */
     private $events;
 

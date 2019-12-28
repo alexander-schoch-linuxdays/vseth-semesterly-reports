@@ -1,6 +1,6 @@
 {
-  "name": "the-alternative-zurich/feedback",
-  "description": "collect feedback from lectures & workshop with minimal setup & instant evaulation ",
+  "name": "famoser/vseth-semesterly-reports",
+  "description": "allows organisations to create semesterly reports to be able to use the services of VSETH",
   "license": "MIT",
   "require": {
     "php": "^7.2",
@@ -92,7 +92,7 @@
     "post-update-cmd": "@prepare-environment"
   },
   "extra": {
-    "projectTitle": "mangelio/web",
+    "projectTitle": "famoser/vseth-semesterly-reports",
     "hooks": {
       "pre-commit": [
         "echo committing as $(git config user.name)",

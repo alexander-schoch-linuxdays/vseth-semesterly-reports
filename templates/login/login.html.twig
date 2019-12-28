@@ -5,7 +5,6 @@
 
 {% trans_default_domain "login" %}
 
-{% block container_class %}container feedback-container{% endblock %}
 {% block single_content %}
     {{ form_start(form, {"action" : path("login_check")}) }}
     {{ form_errors(form) }}
