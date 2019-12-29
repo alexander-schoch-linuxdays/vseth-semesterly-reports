@@ -55,6 +55,13 @@ task('deploy:refresh_symlink', function () {
     run('killall -9 php-cgi'); //kill all php processes so symlink is refreshed
 })->desc('Refreshing symlink');
 
+desc('Migrate database');
+task('database:migrate', function () {
+    $options = '';
+    run('{{bin/console}} doctrine:migrations:migrate --env=PROD --allow-no-migration');
+});
+
+
 //automatic till vendors comand
 desc('Deploy project');
 task('deploy', [
