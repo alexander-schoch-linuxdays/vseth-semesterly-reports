@@ -1,0 +1,22 @@
+FROM eu.gcr.io/vseth-public/php7:charlie
+
+# Install dependencies not packaged in php7 base image
+RUN apt install -y \
+    php-mail \
+    php-mysqli \
+    php-intl \
+    composer \
+    sudo
+
+RUN tar xvf /app/.default.var.tar -C /
+ADD default /app/var/nginx-sites.d/default
+
+COPY ./ /app/var/htdocs
+WORKDIR /app/var/htdocs
+
+RUN chown -R app-user:www-data /app/var/htdocs && \
+  chmod -R 755 /app/var/htdocs && \
+  sudo -u app-user composer install && \
+  rm -Rf composer* READM*
+
+# COPY cinit.yml /etc/cinit.d/
