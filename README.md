@@ -8,6 +8,9 @@ Goals:
  - create a semesterly report quick & informs about VSETH structures.
  - evaluate semesterly reports efficiently & export the information.
  
- Testing:
+Testing:
  - request `/login/code/1234` to login as an organisation
  - use `ia@vseth.ethz.ch` `secret` at `/login` to login as an administrator
+
+Release:
+ - execute `./vendor/bin/agnes release v1.0 master` to create release `v1.0` from master (ensure the GITHUB_AUTH_TOKEN in `.env` is set)
