@@ -2,8 +2,6 @@
 .idea
 .build
 *.phar
-/node_modules/
-yarn-error.log
 trace.html
 
 # deployment
@@ -11,7 +9,6 @@ servers.yml
 public/dist/*
 
 # debug
-yarn-error.log
 build
 
 ###> symfony/framework-bundle ###
