@@ -6,7 +6,7 @@ agnes:
     path: .build
 
 application:
-  repository: mangelio/web
+  repository: famoser/vseth-semesterly-reports
 
   shared_folders:
     - var/persistent
