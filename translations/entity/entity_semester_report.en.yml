@@ -1,12 +1,8 @@
 entity:
   name: 'Semester Report'
 
-help:
-  political_events_description: "If you hold events with potentially political content, please describe them here."
-  comments: "If you have anything more to tell us, please do!"
-
 general_conformity: "You still conform to the application criterias"
-statutes_conformity: "Your statutes were unchanged last semester or the new version was sent to ia@vseth.ethz.ch"
+statutes_conformity: "Your statutes were unchanged last semester"
 ci_conformity: "You uphold the CI-Guidelines"
 added_all_events: "You added all your events (below)"
 

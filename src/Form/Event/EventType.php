@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,15 +29,15 @@ class EventType extends AbstractType
         $builder->add('semester', SemesterType::class);
         $builder->add('nameDe', TextType::class, ['required' => false]);
         $builder->add('nameEn', TextType::class, ['required' => false]);
-        $builder->add('descriptionDe', TextType::class, ['required' => false]);
-        $builder->add('descriptionEn', TextType::class, ['required' => false]);
+        $builder->add('descriptionDe', TextareaType::class, ['required' => false]);
+        $builder->add('descriptionEn', TextareaType::class, ['required' => false]);
         $builder->add('location', TextType::class);
 
         $builder->add('startDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
         $builder->add('endDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
 
         $builder->add('budget', NumberType::class);
-        $builder->add('needFinancialSupport', CheckboxType::class, ['required' => false, 'help' => 'help.need_financial_support']);
+        $builder->add('needFinancialSupport', CheckboxType::class, ['required' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

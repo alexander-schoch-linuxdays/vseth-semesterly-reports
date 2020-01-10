@@ -47,6 +47,14 @@ class EventController extends BaseController
         $event->setNeedFinancialSupport(false);
         $event->setStartDate(new \DateTime());
 
+        return $this->displayNewForm($request, $translator, $organisation, $event);
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface|Response
+     */
+    private function displayNewForm(Request $request, TranslatorInterface $translator, Organisation $organisation, Event $event)
+    {
         //process form
         $myForm = $this->handleCreateForm(
             $request,
@@ -69,15 +77,11 @@ class EventController extends BaseController
      *
      * @return Response
      */
-    public function copyAction(Organisation $organisation, Event $event)
+    public function copyAction(Request $request, Organisation $organisation, Event $event, TranslatorInterface $translator)
     {
-        $manager = $this->getDoctrine()->getManager();
-
         $clonedEvent = clone $event;
-        $manager->persist($clonedEvent);
-        $manager->flush();
 
-        return $this->redirectToRoute('organisation_event_edit', ['organisation' => $organisation->getId(), 'event' => $event->getId()]);
+        return $this->displayNewForm($request, $translator, $organisation, $clonedEvent);
     }
 
     /**

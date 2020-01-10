@@ -12,7 +12,7 @@ What still needs to be done to deploy & publish the application. Mark points whi
 - [x] start the CI services which are configured in the `README.md`
 
 ## configure symfony template
-- [ ] change the brand name in `translations/layout.de.yml`
+- [x] change the brand name in `translations/layout.de.yml`
 
 ## release checklist
 - [ ] generate favicons with [realfavicongenerator.net](https://realfavicongenerator.net/)

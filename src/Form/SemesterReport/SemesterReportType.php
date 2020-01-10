@@ -22,13 +22,13 @@ class SemesterReportType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('generalConformity', CheckboxType::class, ['mapped' => false]);
-        $builder->add('statutesConformity', CheckboxType::class, ['mapped' => false]);
-        $builder->add('ciConformity', CheckboxType::class, ['mapped' => false]);
-        $builder->add('addedAllEvents', CheckboxType::class, ['mapped' => false]);
+        $builder->add('generalConformity', CheckboxType::class, ['mapped' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
+        $builder->add('statutesConformity', CheckboxType::class, ['mapped' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
+        $builder->add('ciConformity', CheckboxType::class, ['mapped' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
+        $builder->add('addedAllEvents', CheckboxType::class, ['mapped' => false, 'label_attr' => ['class' => 'checkbox-custom', 'link' => 'hi mom']]);
 
-        $builder->add('politicalEventsDescription', TextareaType::class, ['required' => false, 'help' => 'help.political_events_description']);
-        $builder->add('comments', TextareaType::class, ['required' => false, 'help' => 'help.comments']);
+        $builder->add('politicalEventsDescription', TextareaType::class, ['required' => false]);
+        $builder->add('comments', TextareaType::class, ['required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

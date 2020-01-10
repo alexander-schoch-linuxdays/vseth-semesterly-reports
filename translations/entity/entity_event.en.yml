@@ -2,17 +2,14 @@ entity:
   name: 'Event'
   plural: 'Events'
 
-help:
-  need_financial_support: "only for one-time, matchless events"
-
 semester: "semester"
 
 name: "name"
 name_de: "name (de)"
-name_en: "name (em)"
+name_en: "name (en)"
 description: "description"
 description_de: "description (de)"
-description_en: "description (em)"
+description_en: "description (en)"
 location: "location"
 
 start_date: "start date & time"

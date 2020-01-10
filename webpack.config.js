@@ -7,6 +7,11 @@ Encore
     // the public path used by the web server to access the previous directory
     .setPublicPath("/dist")
 
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]'
+    })
+
     // will create public/build/app.js and public/build/app.css
     .addEntry("app", "./assets/js/app.js")
 
