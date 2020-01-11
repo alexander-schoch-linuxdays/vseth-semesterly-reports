@@ -131,9 +131,13 @@ class Event extends BaseEntity
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName($preference = 'de')
     {
-        return $this->getNameDe() !== null ? $this->getNameDe() : $this->getNameEn();
+        if ($preference === 'de') {
+            return $this->getNameDe() !== null ? $this->getNameDe() : $this->getNameEn();
+        }
+
+        return $this->getNameEn() !== null ? $this->getNameEn() : $this->getNameDe();
     }
 
     public function getNameDe(): ?string
@@ -159,9 +163,13 @@ class Event extends BaseEntity
     /**
      * @return string|null
      */
-    public function getDescription()
+    public function getDescription($preference = 'de')
     {
-        return $this->getDescriptionDe() !== null ? $this->getDescriptionDe() : $this->getDescriptionEn();
+        if ($preference === 'de') {
+            return $this->getDescriptionDe() !== null ? $this->getDescriptionDe() : $this->getDescriptionEn();
+        }
+
+        return $this->getDescriptionEn() !== null ? $this->getDescriptionEn() : $this->getDescriptionDe();
     }
 
     public function getDescriptionDe(): ?string
