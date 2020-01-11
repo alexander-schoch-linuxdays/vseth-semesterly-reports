@@ -15,10 +15,11 @@
         {{ "view.welcome_help"|trans }}
         <a href="{{ "view.welcome_help_link"|trans }}"><i class="fas fa-link"></i></a>
     </p>
+    <p>
+        {{ "view.calender_help"|trans }}
+    </p>
 
-    <hr class="mt-5 mb-5"/>
-
-    <h2>{{ "entity.name"|trans({}, "entity_semester_report") }}</h2>
+    <h3>{{ "entity.name"|trans({}, "entity_semester_report") }}</h3>
     {% if submit_semester_report is defined %}
 
         {{ form_start(submit_semester_report) }}
@@ -59,9 +60,7 @@
         <p class="alert alert-success">{{ "view.semester_report_submitted"|trans }}</p>
     {% endif %}
 
-    <hr class="mt-5 mb-5"/>
-
-    <h2>{{ "entity.plural"|trans({}, "entity_event") }}</h2>
+    <h3>{{ "entity.plural"|trans({}, "entity_event") }}</h3>
     <div class="btn-group mb-2">
         <a class="btn btn-secondary"
            href="{{ path("organisation_event_new", {"organisation": organisation.id}) }}">

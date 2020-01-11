@@ -16,6 +16,8 @@
                 {% if internalFields %}
                     <th>{{ "budget"|trans({}, "entity_event") }}</th>
                     <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
+                {% else %}
+                    <th>{{ "start_date"|trans({}, "entity_event") }}</th>
                 {% endif %}
                 {% if showEditButtons %}
                     <th class="minimal-width"></th>
@@ -37,6 +39,8 @@
                     {% if internalFields %}
                         <td>{{ event.budget }}</td>
                         <td>{{ event.needFinancialSupport|booleanFormat }}</td>
+                    {% else %}
+                        <td>{{ event.startDate|dateTimeFormat }}</td>
                     {% endif %}
                     {% if showEditButtons %}
                         <td>
