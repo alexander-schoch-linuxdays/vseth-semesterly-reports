@@ -1,4 +1,4 @@
-{% macro events(organisation, showEditButtons = false, manyFields = false) %}
+{% macro events(organisation, showEditButtons = false, internalFields = false) %}
     {% if organisation.events|length == 0 %}
         <p>{{ "view.no_events_added_yet"|trans({}, "organisation") }}</p>
     {% else %}
@@ -7,14 +7,16 @@
             <tr>
                 <th>{{ "semester"|trans({}, "entity_event") }}</th>
                 <th>{{ "name"|trans({}, "entity_event") }}</th>
-                {% if manyFields %}
+                {% if internalFields %}
                     <th>{{ "description"|trans({}, "entity_event") }}</th>
                     <th>{{ "start_date"|trans({}, "entity_event") }}</th>
                     <th>{{ "end_date"|trans({}, "entity_event") }}</th>
                 {% endif %}
                 <th>{{ "location"|trans({}, "entity_event") }}</th>
-                <th>{{ "budget"|trans({}, "entity_event") }}</th>
-                <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
+                {% if internalFields %}
+                    <th>{{ "budget"|trans({}, "entity_event") }}</th>
+                    <th>{{ "need_financial_support"|trans({}, "entity_event") }}</th>
+                {% endif %}
                 {% if showEditButtons %}
                     <th class="minimal-width"></th>
                 {% endif %}
@@ -26,14 +28,16 @@
                 <tr>
                     <td>{{ event.semesterName }}</td>
                     <td>{{ event.name }}</td>
-                    {% if manyFields %}
+                    {% if internalFields %}
                         <td>{{ event.description }}</td>
                         <td>{{ event.startDate|dateTimeFormat }}</td>
                         <td>{{ event.endDate|dateTimeFormat }}</td>
                     {% endif %}
                     <td>{{ event.location }}</td>
-                    <td>{{ event.budget }}</td>
-                    <td>{{ event.needFinancialSupport|booleanFormat }}</td>
+                    {% if internalFields %}
+                        <td>{{ event.budget }}</td>
+                        <td>{{ event.needFinancialSupport|booleanFormat }}</td>
+                    {% endif %}
                     {% if showEditButtons %}
                         <td>
                             <div class="btn-group">

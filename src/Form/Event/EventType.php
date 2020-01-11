@@ -33,6 +33,7 @@ class EventType extends AbstractType
         $builder->add('descriptionEn', TextareaType::class, ['required' => false]);
         $builder->add('location', TextType::class);
 
+        $builder->add('showInCalender', CheckboxType::class, ['required' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
         $builder->add('startDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
         $builder->add('endDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
 

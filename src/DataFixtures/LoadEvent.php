@@ -87,6 +87,7 @@ class LoadEvent extends BaseFixture
         $event->setStartDate($faker->dateTime);
         $event->setEndDate($faker->dateTimeInInterval($event->getStartDate()->format('c'), '+4 hours'));
         $event->setLocation($faker->text(20));
+        $event->setShowInCalender($faker->boolean(80));
 
         if ($faker->randomDigit < 5) {
             $event->setBudget(0);

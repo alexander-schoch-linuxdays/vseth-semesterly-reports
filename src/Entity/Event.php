@@ -83,6 +83,13 @@ class Event extends BaseEntity
     private $endDate;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    private $showInCalender = true;
+
+    /**
      * @var int
      *
      * @ORM\Column(type="integer")
@@ -235,5 +242,15 @@ class Event extends BaseEntity
     public function setOrganisation(Organisation $organisation): void
     {
         $this->organisation = $organisation;
+    }
+
+    public function getShowInCalender(): bool
+    {
+        return $this->showInCalender;
+    }
+
+    public function setShowInCalender(bool $showInCalender): void
+    {
+        $this->showInCalender = $showInCalender;
     }
 }

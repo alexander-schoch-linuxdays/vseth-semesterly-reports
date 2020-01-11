@@ -14,6 +14,7 @@ location: "location"
 
 start_date: "start date & time"
 end_date: "end date & time"
+show_in_calender: "show in our public calender"
 
 budget: "budget (\"turnover\")"
 need_financial_support: "financial support VSETH needed"
