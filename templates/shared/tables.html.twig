@@ -37,7 +37,7 @@
                     {% endif %}
                     <td>{{ event.location }}</td>
                     {% if internalFields %}
-                        <td>{{ event.budget }}</td>
+                        <td>+{{ event.revenue }} / -{{ event.expenditure }} </td>
                         <td>{{ event.needFinancialSupport|booleanFormat }}</td>
                     {% else %}
                         <td>{{ event.startDate|dateTimeFormat }}</td>

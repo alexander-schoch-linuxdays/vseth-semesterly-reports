@@ -90,11 +90,11 @@ class LoadEvent extends BaseFixture
         $event->setShowInCalender($faker->boolean(80));
 
         if ($faker->randomDigit < 5) {
-            $event->setBudget(0);
+            $event->setRevenue(0);
         } else {
-            $event->setBudget($faker->randomNumber(3));
+            $event->setRevenue($faker->randomNumber(3));
         }
-        $event->setNeedFinancialSupport($event->getBudget() > 0 && $faker->randomDigit < 3);
+        $event->setNeedFinancialSupport($event->getRevenue() > 0 && $faker->randomDigit < 3);
 
         return $event;
     }

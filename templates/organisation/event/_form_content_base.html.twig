@@ -71,18 +71,23 @@
     </small>
     <hr/>
     <div class="row">
-        <div class="col-xl-4 col-md-6">
+        <div class="col-md">
             <div class="form-group">
-                {{ form_row(form.budget) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.needFinancialSupport) }}
-                <small class="form-text text-muted external-help">
-                    {{ "new.help.need_financial_support"|trans }}
-                    <a href="{{ "new.help.need_financial_support_link"|trans }}" target="_blank"><i class="fas fa-link"></i></a>
-                </small>
+                {{ form_row(form.revenue) }}
             </div>
         </div>
+        <div class="col-md">
+            <div class="form-group">
+                {{ form_row(form.expenditure) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_row(form.needFinancialSupport) }}
+        <small class="form-text text-muted external-help">
+            {{ "new.help.need_financial_support"|trans }}
+            <a href="{{ "new.help.need_financial_support_link"|trans }}" target="_blank"><i class="fas fa-link"></i></a>
+        </small>
     </div>
     {{ form_end(form) }}
 {% endblock %}

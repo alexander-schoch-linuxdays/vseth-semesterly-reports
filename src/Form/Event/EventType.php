@@ -37,7 +37,8 @@ class EventType extends AbstractType
         $builder->add('startDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
         $builder->add('endDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
 
-        $builder->add('budget', NumberType::class);
+        $builder->add('revenue', NumberType::class);
+        $builder->add('expenditure', NumberType::class);
         $builder->add('needFinancialSupport', CheckboxType::class, ['required' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
     }
 

@@ -94,7 +94,14 @@ class Event extends BaseEntity
      *
      * @ORM\Column(type="integer")
      */
-    private $budget;
+    private $revenue = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $expenditure = 0;
 
     /**
      * @var bool
@@ -222,14 +229,24 @@ class Event extends BaseEntity
         $this->endDate = $endDate;
     }
 
-    public function getBudget(): int
+    public function getRevenue(): int
     {
-        return $this->budget;
+        return $this->revenue;
     }
 
-    public function setBudget(int $budget): void
+    public function setRevenue(int $revenue): void
     {
-        $this->budget = $budget;
+        $this->revenue = $revenue;
+    }
+
+    public function getExpenditure(): int
+    {
+        return $this->expenditure;
+    }
+
+    public function setExpenditure(int $expenditure): void
+    {
+        $this->expenditure = $expenditure;
     }
 
     public function isNeedFinancialSupport(): bool

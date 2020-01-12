@@ -43,7 +43,7 @@ class EventController extends BaseController
         $event->setSemester(SemesterType::getCurrentSemester());
         $event->setOrganisation($organisation);
         $event->setLocation('');
-        $event->setBudget(0);
+        $event->setRevenue(0);
         $event->setNeedFinancialSupport(false);
         $event->setStartDate(new \DateTime());
 

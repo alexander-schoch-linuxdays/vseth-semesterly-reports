@@ -153,16 +153,28 @@ class Organisation extends BaseEntity
         return \count($this->futureEvents);
     }
 
-    public function getFutureBudgetSum(): int
+    public function getFutureRevenueSum(): int
     {
         $this->ensureFutureEventsPopulated();
 
-        $budgetSum = 0;
+        $revenueSum = 0;
         foreach ($this->futureEvents as $futureEvent) {
-            $budgetSum += $futureEvent->getBudget();
+            $revenueSum += $futureEvent->getRevenue();
         }
 
-        return $budgetSum;
+        return $revenueSum;
+    }
+
+    public function getFutureExpenditureSum(): int
+    {
+        $this->ensureFutureEventsPopulated();
+
+        $expenditureSum = 0;
+        foreach ($this->futureEvents as $futureEvent) {
+            $expenditureSum += $futureEvent->getExpenditure();
+        }
+
+        return $expenditureSum;
     }
 
     public function futureFinancialSupport(): bool

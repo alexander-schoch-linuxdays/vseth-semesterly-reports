@@ -49,7 +49,7 @@
                     {% else %}
                         <td>{{ false|booleanFormat }}</td>
                     {% endif %}
-                    <td>{{ organisation.futureBudgetSum }}</td>
+                    <td>+{{ organisation.futureRevenueSum }} / -{{ organisation.futureExpenditureSum }}</td>
                     <td>{{ organisation.futureFinancialSupport|booleanFormat }}</td>
                     {% if semester_report %}
                         <td>{{ semester_report.politicalEventsDescription }}</td>
