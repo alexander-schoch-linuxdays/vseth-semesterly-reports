@@ -40,8 +40,6 @@ class OrganisationVoter extends BaseVoter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        dump($token);
-
         return \in_array(User::ROLE_ADMIN, $token->getRoleNames(), true) || ($subject->getEmail() === $token->getUser()->getUsername());
     }
 }
