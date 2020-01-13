@@ -23,8 +23,8 @@ class OrganisationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, ['required' => false]);
-        $builder->add('email', EmailType::class, ['required' => false]);
+        $builder->add('name', TextType::class);
+        $builder->add('email', EmailType::class);
         $builder->add('relationSinceSemester', SemesterType::class);
     }
 
@@ -32,7 +32,7 @@ class OrganisationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Organisation::class,
-            'translation_domain' => 'entity_event',
+            'translation_domain' => 'entity_organisation',
         ]);
     }
 }
