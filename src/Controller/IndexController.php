@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Controller\Base\BaseDoctrineController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/")
@@ -24,8 +25,13 @@ class IndexController extends BaseDoctrineController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Security $security)
     {
+        $user = $security->getUser();
+        if (\in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return $this->redirectToRoute('administration');
+        }
+
         return $this->render('index/index.html.twig');
     }
 
