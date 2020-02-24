@@ -8,7 +8,7 @@ view:
     todo: "To continue being recognised by VSETH for the next semester please:"
     step_1: 'add your events'
     step_2: 'create the semesterly report'
-    evaluation: 'Based on its evaluation VSETH your organisation can keep its recognised status and enjoy the benefits we can provide.'
+    evaluation: 'Based on its evaluation your organisation can keep its recognised status and enjoy the benefits we can provide.'
   welcome_help_link: https://actives.vseth.ethz.ch/fuer-anerkannte-organisationen
   calender_help: Updates here will be reflected in the VSETH calender. You can update anytime (even after submitting the semester report).
   semester_report_submitted: "The semester report was submitted, and will be checked by us."
