@@ -8,15 +8,20 @@
 {% trans_default_domain "organisation" %}
 
 {% block single_content %}
-    <h2>{{ "view.welcome"|trans({'{name}': organisation.name}) }}</h2>
+    <h2>{{ "view.hi"|trans }}</h2>
+    <p class="lead">{{ organisation.name }}</p>
 
-    <p class="lead">{{ "view.welcome_thanks"|trans }}</p>
-    <p>
-        {{ "view.welcome_help"|trans }}
-        <a href="{{ "view.welcome_help_link"|trans }}"><i class="fas fa-link"></i></a>
+    <p>{{ "view.welcome.thanks"|trans }}<br/>
+        {{ "view.welcome.todo"|trans }}
     </p>
+    <ol>
+        <li>{{ "view.welcome.step_1"|trans }}</li>
+        <li>{{ "view.welcome.step_2"|trans }}</li>
+    </ol>
+
     <p>
-        {{ "view.calender_help"|trans }}
+        {{ "view.welcome.evaluation"|trans }}
+        <a href="{{ "view.welcome_help_link"|trans }}"><i class="fas fa-link"></i></a>
     </p>
 
     <h3>{{ "entity.name"|trans({}, "entity_semester_report") }}</h3>
@@ -69,5 +74,9 @@
     </div>
 
     {{ tables.events(organisation, true) }}
+
+    <p class="text-secondary">
+        {{ "view.calender_help"|trans }}
+    </p>
 {% endblock %}
 
