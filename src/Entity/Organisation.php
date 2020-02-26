@@ -13,6 +13,7 @@ namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\TimeTrait;
 use App\Form\Type\SemesterType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,6 +28,7 @@ use Ramsey\Uuid\Uuid;
 class Organisation extends BaseEntity
 {
     use IdTrait;
+    use TimeTrait;
 
     /**
      * @var string
