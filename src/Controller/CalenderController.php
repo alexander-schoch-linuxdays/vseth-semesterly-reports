@@ -15,6 +15,7 @@ use App\Controller\Base\BaseDoctrineController;
 use App\Entity\Event;
 use Doctrine\Persistence\ManagerRegistry;
 use Eluceo\iCal\Component\Calendar;
+use Eluceo\iCal\Property\Event\Organizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,6 +50,9 @@ class CalenderController extends BaseDoctrineController
             $calenderEvent->setUseTimezone(true);
             $calenderEvent->setDtStart($event->getStartDate());
             $calenderEvent->setDtEnd($event->getEndDate());
+
+            $organizer = new Organizer($event->getOrganisation()->getName());
+            $calenderEvent->setOrganizer($organizer);
 
             $vCalendar->addComponent($calenderEvent);
         }
