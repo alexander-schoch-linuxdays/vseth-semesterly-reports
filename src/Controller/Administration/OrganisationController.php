@@ -35,7 +35,7 @@ class OrganisationController extends BaseController
     {
         //get all existing semesters
         /** @var Organisation[] $organisations */
-        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy([], ['name' => 'DESC']);
+        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy([], ['name' => 'ASC']);
 
         return $this->render('administration/organisations.twig', ['organisations' => $organisations]);
     }

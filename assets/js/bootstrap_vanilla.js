@@ -6,6 +6,8 @@ window.$ = $;
 require("bootstrap");
 require("bootstrap-select");
 
+require( 'datatables.net');
+require( 'datatables.net-bs4');
 
 // include fontawesome
 import {dom} from '@fortawesome/fontawesome-svg-core'
@@ -47,5 +49,9 @@ $(document).ready(function () {
                 $buttons.removeClass("disabled");
             }
         });
+    });
+
+    $('table.sortable').DataTable({
+        paging: false
     });
 });

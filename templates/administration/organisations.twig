@@ -18,7 +18,7 @@
     {% if organisations|length == 0 %}
         <p>{{ "index.no_organisations_added_yet"|trans }}</p>
     {% else %}
-        <table class="table table-striped">
+        <table class="table table-striped sortable">
             <thead>
             <tr>
                 <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
