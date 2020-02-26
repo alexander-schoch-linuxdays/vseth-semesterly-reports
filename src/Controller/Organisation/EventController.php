@@ -45,7 +45,7 @@ class EventController extends BaseController
         $event->setLocation('');
         $event->setRevenue(0);
         $event->setNeedFinancialSupport(false);
-        $event->setStartDate(new \DateTime());
+        $event->setStartDate(new \DateTime('today 18:00 + 2 weeks'));
 
         return $this->displayNewForm($request, $translator, $organisation, $event);
     }

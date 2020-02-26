@@ -34,8 +34,8 @@ class EventType extends AbstractType
         $builder->add('location', TextType::class);
 
         $builder->add('showInCalender', CheckboxType::class, ['required' => false, 'label_attr' => ['class' => 'checkbox-custom']]);
-        $builder->add('startDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
-        $builder->add('endDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false]);
+        $builder->add('startDate', DateTimeType::class, ['date_widget' => 'single_text', 'time_widget' => 'single_text', 'required' => false]);
+        $builder->add('endDate', DateTimeType::class, ['date_widget' => 'single_text', 'time_widget' => 'single_text', 'required' => false]);
 
         $builder->add('revenue', NumberType::class);
         $builder->add('expenditure', NumberType::class);
