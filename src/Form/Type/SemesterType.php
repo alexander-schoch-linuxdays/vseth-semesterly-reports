@@ -19,15 +19,14 @@ class SemesterType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        // unix epoch was 1. Januar 1970; which would be FS70
-        // hence FS2020 is 50*2 = 100
-
         $current = self::getCurrentSemester();
         $choices = [];
-        $padding = 4;
-        for ($i = -$padding; $i <= $padding; ++$i) {
-            $semester = $current + $i;
-            $choices[self::semesterToString($semester)] = $semester;
+
+        // unix epoch was 1. Januar 1970; which would be FS70
+        // hence FS2020 is 50*2 = 100
+        // hence HS16 (start of AnOrgs) 100 - 7 = 93
+        for ($i = 93; $i <= $current + 2; ++$i) {
+            $choices[self::semesterToString($i)] = $i;
         }
 
         $resolver->setDefaults([
@@ -38,11 +37,14 @@ class SemesterType extends AbstractType
 
     public static function getCurrentSemester(): int
     {
-        $now = new \DateTime();
+        return self::getSemesterFor(new \DateTime());
+    }
 
-        $currentYear = (int)($now)->format('Y');
+    public static function getSemesterFor(\DateTime $dateTime): int
+    {
+        $currentYear = (int)($dateTime)->format('Y');
 
-        $isAutumnSemester = $now > new \DateTime('31.07.' . $currentYear);
+        $isAutumnSemester = $dateTime > new \DateTime('31.07.' . $currentYear);
         $years = $currentYear - 1970;
 
         return $years * 2 + 1 * $isAutumnSemester;

@@ -99,6 +99,7 @@
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <ul class="navbar-nav">
+                        {{ own_macros.menu_entry("index.title"|trans({}, "administration"), path("administration")) }}
                         {{ own_macros.menu_entry("index.title"|trans({}, "administration_organisation"), path("administration_organisations")) }}
                     </ul>
                 {% elseif is_granted('ROLE_ORGANISATION') %}

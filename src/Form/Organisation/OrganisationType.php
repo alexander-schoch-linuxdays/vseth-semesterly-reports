@@ -15,6 +15,7 @@ use App\Entity\Organisation;
 use App\Form\Type\SemesterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +27,7 @@ class OrganisationType extends AbstractType
         $builder->add('name', TextType::class);
         $builder->add('email', EmailType::class);
         $builder->add('relationSinceSemester', SemesterType::class);
+        $builder->add('comments', TextareaType::class, ['required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -8,3 +8,4 @@ added_all_events: "You added all your events (below)"
 
 political_events_description: "Events with political content"
 comments: "Comments"
+submitted_date_time: 'submitted at'

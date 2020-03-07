@@ -84,7 +84,7 @@ class LoadEvent extends BaseFixture
             $event->setDescriptionEn($faker->text(100));
         }
 
-        $event->setStartDate($faker->dateTime);
+        $event->setStartDate($faker->dateTimeInInterval('-1 years', '1 years'));
         $event->setEndDate($faker->dateTimeInInterval($event->getStartDate()->format('c'), '+4 hours'));
         $event->setLocation($faker->text(20));
         $event->setShowInCalender($faker->boolean(80));

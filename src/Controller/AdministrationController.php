@@ -12,8 +12,13 @@
 namespace App\Controller;
 
 use App\Controller\Administration\Base\BaseController;
+use App\Entity\Organisation;
+use App\Form\Type\SemesterType;
+use App\Service\Interfaces\CsvServiceInterface;
+use App\Service\Interfaces\EvaluationServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/administration")
@@ -25,8 +30,35 @@ class AdministrationController extends BaseController
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(EvaluationServiceInterface $evaluationService)
     {
-        return $this->redirectToRoute('administration_organisations');
+        $semesterEvaluation = $evaluationService->getActiveSemesterEvaluation();
+        $currentSemester = SemesterType::getCurrentSemester();
+
+        return $this->render('administration.html.twig', ['semesterEvaluation' => $semesterEvaluation, 'currentSemester' => $currentSemester]);
+    }
+
+    /**
+     * @Route("/export_authentication_links", name="administration_export_authentication_links")
+     *
+     * @return Response
+     */
+    public function exportAuthenticationLinksAction(CsvServiceInterface $csvService)
+    {
+        //get all existing semesters
+        /** @var Organisation[] $organisations */
+        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findActive();
+
+        $organisationArray = [];
+        foreach ($organisations as $organisation) {
+            $entry = [];
+            $entry[] = $organisation->getName();
+            $entry[] = $organisation->getEmail();
+            $entry[] = $this->generateUrl('login_code', ['code' => $organisation->getAuthenticationCode()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $organisationArray[] = $entry;
+        }
+
+        return $csvService->streamCsv('authentication_links.csv', $organisationArray);
     }
 }

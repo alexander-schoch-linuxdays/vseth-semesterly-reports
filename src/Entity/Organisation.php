@@ -12,9 +12,9 @@
 namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
+use App\Entity\Traits\HideTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeTrait;
-use App\Form\Type\SemesterType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -22,13 +22,14 @@ use Ramsey\Uuid\Uuid;
 /**
  * an event determines how the questionnaire looks like.
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\OrganisationRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Organisation extends BaseEntity
 {
     use IdTrait;
     use TimeTrait;
+    use HideTrait;
 
     /**
      * @var string
@@ -50,6 +51,13 @@ class Organisation extends BaseEntity
      * @ORM\Column(type="integer")
      */
     private $relationSinceSemester;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comments;
 
     /**
      * @var string
@@ -115,81 +123,14 @@ class Organisation extends BaseEntity
         return $this->authenticationCode;
     }
 
-    public function getCurrentSemesterReport(): ?SemesterReport
+    public function getComments(): ?string
     {
-        $currentSemester = SemesterType::getCurrentSemester();
-        foreach ($this->getSemesterReports() as $semesterReport) {
-            if ($semesterReport->getSemester() === $currentSemester) {
-                return $semesterReport;
-            }
-        }
-
-        return null;
+        return $this->comments;
     }
 
-    /**
-     * @var Event[]
-     */
-    private $futureEvents = null;
-
-    private function ensureFutureEventsPopulated()
+    public function setComments(?string $comments): void
     {
-        if ($this->futureEvents !== null) {
-            return;
-        }
-
-        $this->futureEvents = [];
-
-        $currentSemester = SemesterType::getCurrentSemester();
-        foreach ($this->getEvents() as $event) {
-            if ($event->getSemester() >= $currentSemester) {
-                $this->futureEvents[] = $event;
-            }
-        }
-    }
-
-    public function getFutureEventCount(): int
-    {
-        $this->ensureFutureEventsPopulated();
-
-        return \count($this->futureEvents);
-    }
-
-    public function getFutureRevenueSum(): int
-    {
-        $this->ensureFutureEventsPopulated();
-
-        $revenueSum = 0;
-        foreach ($this->futureEvents as $futureEvent) {
-            $revenueSum += $futureEvent->getRevenue();
-        }
-
-        return $revenueSum;
-    }
-
-    public function getFutureExpenditureSum(): int
-    {
-        $this->ensureFutureEventsPopulated();
-
-        $expenditureSum = 0;
-        foreach ($this->futureEvents as $futureEvent) {
-            $expenditureSum += $futureEvent->getExpenditure();
-        }
-
-        return $expenditureSum;
-    }
-
-    public function futureFinancialSupport(): bool
-    {
-        $this->ensureFutureEventsPopulated();
-
-        foreach ($this->futureEvents as $futureEvent) {
-            if ($futureEvent->isNeedFinancialSupport()) {
-                return true;
-            }
-        }
-
-        return false;
+        $this->comments = $comments;
     }
 
     /**
