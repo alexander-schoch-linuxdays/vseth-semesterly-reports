@@ -1,79 +1,142 @@
-{% extends "large_content_base.html.twig" %}
+{% extends "layout_base.html.twig" %}
+
+{% import 'shared/tables.html.twig' as tables %}
 
 {% block title %}{{ "index.title"|trans }}{% endblock %}
 {% block description %}{{ "index.description"|trans }}{% endblock %}
 
-{% trans_default_domain "administration_organisation" %}
+{% trans_default_domain "administration" %}
 
-{% block large_content %}
-    <div class="btn-group mb-2">
-        <a class="btn btn-outline-secondary" href="{{ path('administration_export_authentication_links') }}">
-            {{ "index.export_authentication_links"|trans }}
-        </a>
-    </div>
+{% block content %}
+    <section class="content">
+        <div class="container">
+            <div class="p-1 pt-5 pb-4">
+                <h1>{{ "index.title"|trans }}</h1>
+                <p class="lead">{{ "index.description"|trans }}</p>
+            </div>
 
-    {% if organisations|length == 0 %}
-        <p>{{ "index.no_organisations_added_yet"|trans }}</p>
-    {% else %}
-        <table class="table table-striped sortable">
-            <thead>
-            <tr>
-                <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
-                <th>{{ "name"|trans({}, "entity_organisation") }}</th>
-                <th>{{ "email"|trans({}, "entity_organisation") }}</th>
-                <th>{{ "index.summary.event_count"|trans }}</th>
-                <th>{{ "entity.name"|trans({}, "entity_semester_report") }}</th>
-                <th>{{ "index.summary.budget_sum"|trans }}</th>
-                <th>{{ "index.summary.requested_financial_support"|trans }}</th>
-                <th>{{ "political_events_description"|trans({}, "entity_semester_report") }}</th>
-                <th>{{ "comments"|trans({}, "entity_semester_report") }}</th>
-                <th class="minimal-width"></th>
-            </tr>
-            </thead>
-            <tbody>
+            <div class="card">
+                <div class="card-body">
+                    <h2>{{ "index.missing"|trans }}</h2>
 
-            {% for organisation in organisations %}
-                <tr>
-                    <td>{{ organisation.relationSinceSemester|semesterFormat }}</td>
-                    <td>{{ organisation.name }}</td>
-                    <td><a href="mailto:{{ organisation.email }}">{{ organisation.email }}</a></td>
-                    <td>
-                        <a href="{{ path('administration_organisations_events', {'organisation': organisation.id}) }}">{{ organisation.futureEventCount }}</a>
-                    </td>
-                    {% set semester_report = organisation.currentSemesterReport %}
-                    {% if semester_report %}
-                        <td> {{ true|booleanFormat }}</td>
+                    <div class="btn-group mb-2">
+                        <a class="btn btn-outline-secondary"
+                           href="{{ path('administration_export_authentication_links') }}">
+                            {{ "index.export_authentication_links"|trans }}
+                        </a>
+                    </div>
+
+                    {% if semesterEvaluation.missingOrganisations|length == 0 %}
+                        <p>{{ "index.no_missing_organisations"|trans }}</p>
                     {% else %}
-                        <td>{{ false|booleanFormat }}</td>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
+                                <th>{{ "name"|trans({}, "entity_organisation") }}</th>
+                                <th>{{ "entity.plural"|trans({}, "entity_event") }}</th>
+                                <th>{{ "comments"|trans({}, "entity_organisation") }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for organisation in semesterEvaluation.missingOrganisations %}
+                                <tr>
+                                    <td>{{ organisation.relationSinceSemester|semesterFormat }}</td>
+                                    <td><a href="mailto:{{ organisation.email }}">{{ organisation.name }}</a></td>
+                                    <td>
+                                        <a href="{{ path('administration_organisations_events', {'organisation': organisation.id}) }}">{{ organisation.events|length }}</a>
+                                    </td>
+                                    <td>{{ organisation.comments }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     {% endif %}
-                    <td>+{{ organisation.futureRevenueSum }} / -{{ organisation.futureExpenditureSum }}</td>
-                    <td>{{ organisation.futureFinancialSupport|booleanFormat }}</td>
-                    {% if semester_report %}
-                        <td>{{ semester_report.politicalEventsDescription }}</td>
-                        <td>{{ semester_report.comments }}</td>
-                    {% else %}
-                        <td></td>
-                        <td></td>
-                    {% endif %}
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-outline-secondary"
-                               href="{{ path("organisation_view", {"organisation" : organisation.id}) }}">
-                                <i class="fal fa-user"></i>
-                            </a>
-                            <a class="btn btn-secondary"
-                               href="{{ path("administration_organisation_edit", {"organisation" : organisation.id}) }}">
-                                <i class="fal fa-pencil"></i>
-                            </a>
-                            <a class="btn btn-danger"
-                               href="{{ path("administration_organisation_remove", {"organisation" : organisation.id}) }}">
-                                <i class="fal fa-trash"></i>
-                            </a>
+                </div>
+            </div>
+
+            {% if semesterEvaluation.organisationEvaluations|length > 0 %}
+                <div class="p-1 pt-5 pb-4">
+                    <h2>{{ "index.submitted"|trans }}</h2>
+                </div>
+
+                {% for evaluation in semesterEvaluation.organisationEvaluations %}
+                    <div class="card">
+                        <div class="card-header">
+                            {{ evaluation.organisation.name }} |
+                            <a href="mailto:{{ evaluation.organisation.email }}">{{ evaluation.organisation.email }}</a>
+                            |
+                            {{ "relation_since_semester"|trans({}, "entity_organisation") }} {{ evaluation.organisation.relationSinceSemester|semesterFormat }}
+                            | <span class="alert-success">+{{ evaluation.revenueSum }}</span> /
+                            <span class="alert-danger">-{{ evaluation.expenditureSum }}</span>
                         </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+                        <div class="card-body">
+                            <h3 class="mt-0 mb-4">{{ evaluation.organisation.name }}</h3>
+                            {% if evaluation.organisation.comments is not empty %}
+                                <p><i>{{ evaluation.organisation.comments }}</i></p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>{{ "political_events_description"|trans({}, "entity_semester_report") }}</b>
+                                        <br/>
+                                        {{ evaluation.semesterReport.politicalEventsDescription }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <b>{{ "comments"|trans({}, "entity_semester_report") }}</b>
+                                        <br/>
+                                        {{ evaluation.semesterReport.comments }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {% for event in evaluation.events %}
+                                <hr/>
+                                {% if event.needFinancialSupport %}
+                                    <p>
+                                        <span class="badge badge-warning">{{ "need_financial_support"|trans({}, "entity_event") }}</span>
+                                    </p>
+                                {% endif %}
+                                <p class="text-secondary">{{ event.semester|semesterFormat }}
+                                    {% if event.startDate is not null or event.endDate is not null %}
+                                        |
+                                        {% if event.startDate is not null %}
+                                            {{ event.startDate|dateTimeFormat }}
+                                        {% endif %}
+                                        {% if event.startDate is not null and event.endDate is not null %}
+                                            -
+                                        {% endif %}
+                                        {% if event.endDate is not null %}
+                                            {{ event.endDate|dateTimeFormat }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if event.location is not empty %}
+                                        | {{ event.location }}
+                                    {% endif %}
+                                    | <span class="alert-success">+{{ event.revenue }}</span> /
+                                    <span class="alert-danger">-{{ event.expenditure }}</span>
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>{{ event.nameDe }}</h4>
+                                        <p>{{ event.descriptionDe }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>{{ event.nameEn }}</h4>
+                                        <p>{{ event.descriptionEn }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer">
+                            <span>{{ "submitted_date_time"|trans({}, "entity_semester_report") }} {{ evaluation.semesterReport.submittedDateTime|dateTimeFormat }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

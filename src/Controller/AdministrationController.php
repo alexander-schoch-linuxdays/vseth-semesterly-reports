@@ -14,6 +14,7 @@ namespace App\Controller;
 use App\Controller\Administration\Base\BaseController;
 use App\Entity\Organisation;
 use App\Service\Interfaces\CsvServiceInterface;
+use App\Service\Interfaces\EvaluationServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -28,13 +29,11 @@ class AdministrationController extends BaseController
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(EvaluationServiceInterface $evaluationService)
     {
-        //get all existing semesters
-        /** @var Organisation[] $organisations */
-        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findActive();
+        $semesterEvaluation = $evaluationService->getActiveSemesterEvaluation();
 
-        return $this->render('administration.html.twig', ['organisations' => $organisations]);
+        return $this->render('administration.html.twig', ['semesterEvaluation' => $semesterEvaluation]);
     }
 
     /**

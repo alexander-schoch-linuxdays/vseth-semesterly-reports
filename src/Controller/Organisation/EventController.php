@@ -135,6 +135,14 @@ class EventController extends BaseController
             return false;
         }
 
+        if ($event->getStartDate() !== null) {
+            $semester = SemesterType::getSemesterFor($event->getStartDate());
+            $event->setSemester($semester);
+        } elseif ($event->getEndDate() !== null) {
+            $semester = SemesterType::getSemesterFor($event->getEndDate());
+            $event->setSemester($semester);
+        }
+
         return true;
     }
 

@@ -1,4 +1,4 @@
-{% extends "large_content_base.html.twig" %}
+{% extends "single_content_base.html.twig" %}
 
 {% import 'shared/tables.html.twig' as tables %}
 
@@ -7,7 +7,7 @@
 
 {% trans_default_domain "administration_organisation" %}
 
-{% block large_content %}
+{% block single_content %}
     <p>{{ "hidden.help"|trans }}</p>
     {% if organisations|length == 0 %}
         <p>{{ "hidden.no_organisations_hidden_yet"|trans }}</p>

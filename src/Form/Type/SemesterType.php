@@ -37,11 +37,14 @@ class SemesterType extends AbstractType
 
     public static function getCurrentSemester(): int
     {
-        $now = new \DateTime();
+        return self::getSemesterFor(new \DateTime());
+    }
 
-        $currentYear = (int)($now)->format('Y');
+    public static function getSemesterFor(\DateTime $dateTime): int
+    {
+        $currentYear = (int)($dateTime)->format('Y');
 
-        $isAutumnSemester = $now > new \DateTime('31.07.' . $currentYear);
+        $isAutumnSemester = $dateTime > new \DateTime('31.07.' . $currentYear);
         $years = $currentYear - 1970;
 
         return $years * 2 + 1 * $isAutumnSemester;
