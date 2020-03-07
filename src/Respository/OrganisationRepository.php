@@ -27,4 +27,16 @@ class OrganisationRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @return Organisation[]
+     */
+    public function findActive()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.hiddenAt IS NULL')
+            ->orderBy('u.name', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

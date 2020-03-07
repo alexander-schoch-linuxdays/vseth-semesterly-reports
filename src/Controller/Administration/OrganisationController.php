@@ -15,11 +15,9 @@ use App\Controller\Administration\Base\BaseController;
 use App\Entity\Organisation;
 use App\Form\Type\SemesterType;
 use App\Model\Breadcrumb;
-use App\Service\Interfaces\CsvServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -35,8 +33,7 @@ class OrganisationController extends BaseController
     public function indexAction()
     {
         //get all existing semesters
-        /** @var Organisation[] $organisations */
-        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy(['hiddenAt' => null], ['name' => 'ASC']);
+        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findActive();
 
         return $this->render('administration/organisations.twig', ['organisations' => $organisations]);
     }
@@ -53,30 +50,6 @@ class OrganisationController extends BaseController
         $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findHidden();
 
         return $this->render('administration/organisations_hidden.twig', ['organisations' => $organisations]);
-    }
-
-    /**
-     * @Route("/export", name="administration_organisations_export")
-     *
-     * @return Response
-     */
-    public function exportAction(CsvServiceInterface $csvService)
-    {
-        //get all existing semesters
-        /** @var Organisation[] $organisations */
-        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findAll();
-
-        $organisationArray = [];
-        foreach ($organisations as $organisation) {
-            $entry = [];
-            $entry[] = $organisation->getName();
-            $entry[] = $organisation->getEmail();
-            $entry[] = $this->generateUrl('login_code', ['code' => $organisation->getAuthenticationCode()], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            $organisationArray[] = $entry;
-        }
-
-        return $csvService->streamCsv('authentication_codes.csv', $organisationArray);
     }
 
     /**
