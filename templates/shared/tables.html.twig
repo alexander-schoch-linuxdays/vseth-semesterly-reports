@@ -66,3 +66,55 @@
         </table>
     {% endif %}
 {% endmacro %}
+
+{% macro organisations(organisations) %}
+        <table class="table table-striped sortable">
+            <thead>
+            <tr>
+                <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
+                <th>{{ "name"|trans({}, "entity_organisation") }}</th>
+                <th>{{ "email"|trans({}, "entity_organisation") }}</th>
+                <th>{{ "entity.plural"|trans({}, "entity_event") }}</th>
+                <th>{{ "comments"|trans({}, "entity_organisation") }}</th>
+                <th class="minimal-width"></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for organisation in organisations %}
+                <tr>
+                    <td>{{ organisation.relationSinceSemester|semesterFormat }}</td>
+                    <td>{{ organisation.name }}</td>
+                    <td><a href="mailto:{{ organisation.email }}">{{ organisation.email }}</a></td>
+                    <td>
+                        <a href="{{ path('administration_organisations_events', {'organisation': organisation.id}) }}">{{ organisation.futureEventCount }}</a>
+                    </td>
+                    <td>{{ organisation.comments }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-outline-secondary"
+                               href="{{ path("organisation_view", {"organisation" : organisation.id}) }}">
+                                <i class="fal fa-user"></i>
+                            </a>
+                            <a class="btn btn-secondary"
+                               href="{{ path("administration_organisation_edit", {"organisation" : organisation.id}) }}">
+                                <i class="fal fa-pencil"></i>
+                            </a>
+                            {% if organisation.hiddenAt is null %}
+                                <a class="btn btn-warning"
+                                   href="{{ path("administration_organisation_hide", {"organisation" : organisation.id}) }}">
+                                    <i class="fal fa-eye-slash"></i>
+                                </a>
+                            {% else %}
+                                <a class="btn btn-warning"
+                                   href="{{ path("administration_organisation_unhide", {"organisation" : organisation.id}) }}">
+                                    <i class="fal fa-eye"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endmacro %}

@@ -36,13 +36,13 @@ class CalenderController extends BaseDoctrineController
 
         /** @var Event[] $events */
         $events = $managerRegistry->getRepository(Event::class)->findBy(['showInCalender' => true], ['semester' => 'ASC', 'startDate' => 'ASC']);
-        $vCalendar = new Calendar('vseth.ethz.ch/anerkannte-organisation');
+        $vCalendar = new Calendar('vseth.ethz.ch/anerkannte-organisationen');
         foreach ($events as $event) {
             if ($event->getStartDate() === null || $event->getEndDate() === null) {
                 continue;
             }
 
-            $id = base64_encode('vseth-anorg-event-' . $event->getId());
+            $id = base64_encode('vseth-anerkannte-organisationen-event-' . $event->getId());
             $calenderEvent = new \Eluceo\iCal\Component\Event($id);
             $calenderEvent->setSummary($event->getName($langPreference));
             $calenderEvent->setDescription($event->getDescription($langPreference));

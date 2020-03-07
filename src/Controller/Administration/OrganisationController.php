@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/organisation")
@@ -35,9 +36,23 @@ class OrganisationController extends BaseController
     {
         //get all existing semesters
         /** @var Organisation[] $organisations */
-        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy([], ['name' => 'ASC']);
+        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findBy(['hiddenAt' => null], ['name' => 'ASC']);
 
         return $this->render('administration/organisations.twig', ['organisations' => $organisations]);
+    }
+
+    /**
+     * @Route("/hidden", name="administration_organisations_hidden")
+     *
+     * @return Response
+     */
+    public function hiddenAction()
+    {
+        //get all existing semesters
+        /** @var Organisation[] $organisations */
+        $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findHidden();
+
+        return $this->render('administration/organisations_hidden.twig', ['organisations' => $organisations]);
     }
 
     /**
@@ -119,19 +134,41 @@ class OrganisationController extends BaseController
     }
 
     /**     *
-     * @Route("/{organisation}/remove", name="administration_organisation_remove")
+     * @Route("/{organisation}/hide", name="administration_organisation_hide")
+     *
+     * @throws \Exception
      *
      * @return Response
      */
-    public function removeAction(Request $request, Organisation $organisation)
+    public function hideAction(Organisation $organisation, TranslatorInterface $translator)
     {
-        //process form
-        $form = $this->handleDeleteForm($request, $organisation);
-        if ($form === null) {
-            return $this->redirectToRoute('administration_organisations');
+        if ($organisation->getHiddenAt() === null) {
+            $organisation->hide();
+            $this->fastSave($organisation);
+
+            $this->displaySuccess($translator->trans('hide.success', [], 'administration_organisation'));
         }
 
-        return $this->render('administration/organisation/remove.html.twig', ['form' => $form->createView(), 'organisation' => $organisation]);
+        return $this->redirectToRoute('administration_organisations');
+    }
+
+    /**     *
+     * @Route("/{organisation}/unhide", name="administration_organisation_unhide")
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function unhideAction(Organisation $organisation, TranslatorInterface $translator)
+    {
+        if ($organisation->getHiddenAt() !== null) {
+            $organisation->unhide();
+            $this->fastSave($organisation);
+
+            $this->displaySuccess($translator->trans('unhide.success', [], 'administration_organisation'));
+        }
+
+        return $this->redirectToRoute('administration_organisations');
     }
 
     /**

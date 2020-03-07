@@ -12,6 +12,7 @@
 namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
+use App\Entity\Traits\HideTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeTrait;
 use App\Form\Type\SemesterType;
@@ -22,13 +23,14 @@ use Ramsey\Uuid\Uuid;
 /**
  * an event determines how the questionnaire looks like.
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\OrganisationRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Organisation extends BaseEntity
 {
     use IdTrait;
     use TimeTrait;
+    use HideTrait;
 
     /**
      * @var string
@@ -50,6 +52,13 @@ class Organisation extends BaseEntity
      * @ORM\Column(type="integer")
      */
     private $relationSinceSemester;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comments;
 
     /**
      * @var string
@@ -222,5 +231,15 @@ class Organisation extends BaseEntity
     public function getSemesterReports()
     {
         return $this->semesterReports;
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComments(?string $comments): void
+    {
+        $this->comments = $comments;
     }
 }
