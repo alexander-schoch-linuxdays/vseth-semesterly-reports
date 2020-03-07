@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Controller\Administration\Base\BaseController;
 use App\Entity\Organisation;
+use App\Form\Type\SemesterType;
 use App\Service\Interfaces\CsvServiceInterface;
 use App\Service\Interfaces\EvaluationServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,8 +33,9 @@ class AdministrationController extends BaseController
     public function indexAction(EvaluationServiceInterface $evaluationService)
     {
         $semesterEvaluation = $evaluationService->getActiveSemesterEvaluation();
+        $currentSemester = SemesterType::getCurrentSemester();
 
-        return $this->render('administration.html.twig', ['semesterEvaluation' => $semesterEvaluation]);
+        return $this->render('administration.html.twig', ['semesterEvaluation' => $semesterEvaluation, 'currentSemester' => $currentSemester]);
     }
 
     /**

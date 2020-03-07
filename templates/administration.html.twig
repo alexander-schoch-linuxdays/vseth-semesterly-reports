@@ -3,7 +3,7 @@
 {% import 'shared/tables.html.twig' as tables %}
 
 {% block title %}{{ "index.title"|trans }}{% endblock %}
-{% block description %}{{ "index.description"|trans }}{% endblock %}
+{% block description %}{{ "index.description"|trans({"%current_semester%": currentSemester|semesterFormat}) }}{% endblock %}
 
 {% trans_default_domain "administration" %}
 
@@ -12,7 +12,7 @@
         <div class="container">
             <div class="p-1 pt-5 pb-4">
                 <h1>{{ "index.title"|trans }}</h1>
-                <p class="lead">{{ "index.description"|trans }}</p>
+                <p class="lead">{{ "index.description"|trans({"%current_semester%": currentSemester|semesterFormat}) }}</p>
             </div>
 
             <div class="card">
@@ -20,7 +20,7 @@
                     <h2>{{ "index.missing"|trans }}</h2>
 
                     <div class="btn-group mb-2">
-                        <a class="btn btn-outline-secondary"
+                        <a class="btn btn-outline-secondary d-print-none"
                            href="{{ path('administration_export_authentication_links') }}">
                             {{ "index.export_authentication_links"|trans }}
                         </a>
@@ -36,6 +36,7 @@
                                 <th>{{ "name"|trans({}, "entity_organisation") }}</th>
                                 <th>{{ "entity.plural"|trans({}, "entity_event") }}</th>
                                 <th>{{ "comments"|trans({}, "entity_organisation") }}</th>
+                                <th class="minimal-width d-print-none"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,14 @@
                                         <a href="{{ path('administration_organisations_events', {'organisation': organisation.id}) }}">{{ organisation.events|length }}</a>
                                     </td>
                                     <td>{{ organisation.comments }}</td>
+                                    <td class="d-print-none">
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-secondary"
+                                               href="{{ path("organisation_view", {"organisation" : organisation.id}) }}">
+                                                <i class="fal fa-user"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -70,12 +79,12 @@
                             {{ "relation_since_semester"|trans({}, "entity_organisation") }} {{ evaluation.organisation.relationSinceSemester|semesterFormat }}
                             | <span class="alert-success">+{{ evaluation.revenueSum }}</span> /
                             <span class="alert-danger">-{{ evaluation.expenditureSum }}</span>
+                            {% if evaluation.organisation.comments is not empty %}
+                                | <i>{{ evaluation.organisation.comments }}</i>
+                            {% endif %}
                         </div>
                         <div class="card-body">
                             <h3 class="mt-0 mb-4">{{ evaluation.organisation.name }}</h3>
-                            {% if evaluation.organisation.comments is not empty %}
-                                <p><i>{{ evaluation.organisation.comments }}</i></p>
-                            {% endif %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <p>
@@ -120,10 +129,12 @@
                                     <span class="alert-danger">-{{ event.expenditure }}</span>
                                 </p>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>{{ event.nameDe }}</h4>
-                                        <p>{{ event.descriptionDe }}</p>
-                                    </div>
+                                    {% if event.nameDe is not empty or event.descriptionDe is not empty %}
+                                        <div class="col-md-6">
+                                            <h4>{{ event.nameDe }}</h4>
+                                            <p>{{ event.descriptionDe }}</p>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-6">
                                         <h4>{{ event.nameEn }}</h4>
                                         <p>{{ event.descriptionEn }}</p>
