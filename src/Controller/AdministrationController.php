@@ -45,7 +45,6 @@ class AdministrationController extends BaseController
      */
     public function exportAuthenticationLinksAction(CsvServiceInterface $csvService)
     {
-        //get all existing semesters
         /** @var Organisation[] $organisations */
         $organisations = $this->getDoctrine()->getRepository(Organisation::class)->findActive();
 
