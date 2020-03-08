@@ -11,3 +11,4 @@ index:
   missing: 'missing semester report'
   submitted: 'submitted semester reports'
   no_submitted_reports_yet: 'no semester reports have been submitted yet'
+  currency: 'CHF'

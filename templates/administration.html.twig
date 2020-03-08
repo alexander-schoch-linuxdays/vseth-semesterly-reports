@@ -66,18 +66,18 @@
             </div>
 
             {% if semesterEvaluation.organisationEvaluations|length > 0 %}
-                <div class="p-1 pt-5 pb-4">
+                <div class="p-1 mt-5 mb-2">
                     <h2>{{ "index.submitted"|trans }}</h2>
                 </div>
 
                 {% for evaluation in semesterEvaluation.organisationEvaluations %}
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">
                             {{ evaluation.organisation.name }} |
                             <a href="mailto:{{ evaluation.organisation.email }}">{{ evaluation.organisation.email }}</a>
                             |
                             {{ "relation_since_semester"|trans({}, "entity_organisation") }} {{ evaluation.organisation.relationSinceSemester|semesterFormat }}
-                            | <span class="alert-success">+{{ evaluation.revenueSum }}</span> /
+                            | {{ "index.currency"|trans }} <span class="alert-success">+{{ evaluation.revenueSum }}</span> /
                             <span class="alert-danger">-{{ evaluation.expenditureSum }}</span>
                             {% if evaluation.organisation.comments is not empty %}
                                 | <i>{{ evaluation.organisation.comments }}</i>
@@ -90,14 +90,14 @@
                                     <p>
                                         <b>{{ "political_events_description"|trans({}, "entity_semester_report") }}</b>
                                         <br/>
-                                        {{ evaluation.semesterReport.politicalEventsDescription }}
+                                        {{ evaluation.semesterReport.politicalEventsDescription|default("-") }}
                                     </p>
                                 </div>
                                 <div class="col-md-6">
                                     <p>
                                         <b>{{ "comments"|trans({}, "entity_semester_report") }}</b>
                                         <br/>
-                                        {{ evaluation.semesterReport.comments }}
+                                        {{ evaluation.semesterReport.comments|default("-") }}
                                     </p>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     {% if event.location is not empty %}
                                         | {{ event.location }}
                                     {% endif %}
-                                    | <span class="alert-success">+{{ event.revenue }}</span> /
+                                    | {{ "index.currency"|trans }} <span class="alert-success">+{{ event.revenue }}</span> /
                                     <span class="alert-danger">-{{ event.expenditure }}</span>
                                 </p>
                                 <div class="row">
