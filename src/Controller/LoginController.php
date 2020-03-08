@@ -65,7 +65,7 @@ class LoginController extends BaseFormController
     public function codeAction(Request $request, string $code, UserProvider $provider)
     {
         /** @var Organisation $organisation */
-        $organisation = $this->getDoctrine()->getRepository(Organisation::class)->findOneBy(['authenticationCode' => $code]);
+        $organisation = $this->getDoctrine()->getRepository(Organisation::class)->findOneBy(['authenticationCode' => $code, 'hiddenAt' => null]);
         if ($organisation === null) {
             $this->displayError($this->getTranslator()->trans('login.error.invalid_auth_code', [], 'login'));
         } else {
