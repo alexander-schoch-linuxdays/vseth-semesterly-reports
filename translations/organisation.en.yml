@@ -2,7 +2,7 @@ view:
   title: "Semesterly reports"
   description: "Please describe your activities."
   no_events_added_yet: "You have not added any event yet"
-  hi: 'Hi!'
+  hi: 'Hi'
   welcome:
     thanks: "Thank you for your effort for the students of ETH!"
     todo: "To continue being recognised by VSETH for the next semester please:"

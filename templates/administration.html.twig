@@ -66,12 +66,12 @@
             </div>
 
             {% if semesterEvaluation.organisationEvaluations|length > 0 %}
-                <div class="p-1 pt-5 pb-4">
+                <div class="p-1 mt-5 mb-2">
                     <h2>{{ "index.submitted"|trans }}</h2>
                 </div>
 
                 {% for evaluation in semesterEvaluation.organisationEvaluations %}
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">
                             {{ evaluation.organisation.name }} |
                             <a href="mailto:{{ evaluation.organisation.email }}">{{ evaluation.organisation.email }}</a>

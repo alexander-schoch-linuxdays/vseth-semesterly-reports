@@ -8,8 +8,7 @@
 {% trans_default_domain "organisation" %}
 
 {% block single_content %}
-    <h2>{{ "view.hi"|trans }}</h2>
-    <p class="lead">{{ organisation.name }}</p>
+    <h2>{{ "view.hi"|trans }} {{ organisation.name }}</h2>
 
     <p>{{ "view.welcome.thanks"|trans }}<br/>
         {{ "view.welcome.todo"|trans }}
@@ -24,6 +23,7 @@
         <a href="{{ "view.welcome_help_link"|trans }}"><i class="fas fa-link"></i></a>
     </p>
 
+    <hr/>
     <h3>{{ "entity.name"|trans({}, "entity_semester_report") }}</h3>
     {% if submit_semester_report is defined %}
 
@@ -65,6 +65,7 @@
         <p class="alert alert-success">{{ "view.semester_report_submitted"|trans }}</p>
     {% endif %}
 
+    <hr/>
     <h3>{{ "entity.plural"|trans({}, "entity_event") }}</h3>
     <div class="btn-group mb-2">
         <a class="btn btn-secondary"
