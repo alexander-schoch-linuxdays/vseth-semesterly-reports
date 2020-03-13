@@ -21,8 +21,9 @@
 namespace App\Repository;
 
 use App\Entity\Organisation;
+use Doctrine\ORM\EntityRepository;
 
-class OrganisationRepository extends \Doctrine\ORM\EntityRepository
+class OrganisationRepository extends EntityRepository
 {
     /**
      * @return Organisation[]
