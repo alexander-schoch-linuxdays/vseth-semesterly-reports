@@ -93,3 +93,5 @@ script:
 after_script:
 # scrutinizer reporting
 - if [[ $COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml; fi
+# coverage (deactivated)
+# - if [[ $COVERAGE == true ]]; then bash <(curl -s https://codecov.io/bash); fi
