@@ -50,13 +50,11 @@ install:
 # install dependencies
 - composer install --no-plugins --no-scripts
 - yarn install
-- ./vendor/bin/simple-phpunit install
 - chmod +x ./bin/console
 
 # print versions just in case
 - php --version
 - php ./bin/console --version
-- php ./vendor/bin/simple-phpunit --version
 - phpunit --version
 
 # check if travis fulfills symfony requirements
@@ -64,9 +62,6 @@ install:
 
 # prepare tests
 before_script:
-# perform license check (before enable, enable section in before_install again)
-# - fossa
-
 # warmup cache to avoid excessive memory usage
 - php bin/console cache:warmup
 
@@ -98,6 +93,3 @@ script:
 after_script:
 # scrutinizer reporting
 - if [[ $COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml; fi
-
-# deactivated
-# install composer curl -sS https://getcomposer.org/installer | php #use now with php composer.phar
