@@ -21,8 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 
 /**
- * an event determines how the questionnaire looks like.
- *
  * @ORM\Entity(repositoryClass="App\Repository\OrganisationRepository")
  * @ORM\HasLifecycleCallbacks
  */
