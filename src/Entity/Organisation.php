@@ -21,8 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 
 /**
- * an event determines how the questionnaire looks like.
- *
  * @ORM\Entity(repositoryClass="App\Repository\OrganisationRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -139,14 +137,6 @@ class Organisation extends BaseEntity
     public function setComments(?string $comments): void
     {
         $this->comments = $comments;
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setAuthenticationCode(string $authenticationCode)
-    {
-        $this->authenticationCode = $authenticationCode;
     }
 
     /**

@@ -97,6 +97,23 @@ class OrganisationController extends BaseController
     }
 
     /**     *
+     * @Route("/{organisation}/reset_authentication_code", name="administration_organisation_reset_authentication_code")
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function resetAuthenticationCodeAction(Organisation $organisation, TranslatorInterface $translator)
+    {
+        $organisation->generateAuthenticationCode();
+        $this->fastSave($organisation);
+
+        $this->displaySuccess($translator->trans('reset_authentication_code.success', [], 'administration_organisation'));
+
+        return $this->redirectToRoute('administration_organisations');
+    }
+
+    /**     *
      * @Route("/{organisation}/hide", name="administration_organisation_hide")
      *
      * @throws \Exception

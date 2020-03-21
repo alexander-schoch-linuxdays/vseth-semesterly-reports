@@ -18,8 +18,6 @@ use App\Form\Type\SemesterType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * an event determines how the questionnaire looks like.
- *
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */

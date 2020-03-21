@@ -21,3 +21,20 @@ view:
     political_events: 'If you hold events with potentially political content, please describe them here. They need to adhere to our guidelines to political content.'
     political_events_link: 'https://actives.vseth.ethz.ch/dokumentation/studentische-organisationen/parteipolitisch-neutral-sein'
     comments: 'If you have anything more to tell us, please do!'
+
+report_submitted_email:
+  subject: "semesterly report submitted by %organisation%"
+  body: |
+    Semester report submitted with %event_count% events.
+
+    Comment:
+    %report_comment%
+
+    Events with political content:
+    %report_political_events_description%
+
+    Organisation details:
+    Email: %organisation_email%
+    Comment: %organisation_comment%
+
+    See more at %link%.

@@ -31,3 +31,6 @@ hidden:
   description: 'hidden organisations'
   help: 'hidden organisations can no longer login, and will not be included in future semester resports.'
   no_organisations_hidden_yet: 'no hidden organisations yet'
+
+reset_authentication_code:
+  success: 'authentication code reset'
