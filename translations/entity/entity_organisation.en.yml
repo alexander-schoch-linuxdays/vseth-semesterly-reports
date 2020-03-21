@@ -5,3 +5,4 @@ name: "name"
 email: "E-Mail"
 relation_since_semester: "relations since"
 comments: 'comments'
+last_visit_at: 'last visit'

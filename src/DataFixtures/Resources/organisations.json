@@ -1,5 +1,11 @@
 [
   {
+    "name": "Zero Waste",
+    "email": "zerowaste@vseth.ethz.ch",
+    "relationSinceSemester": 99,
+    "authenticationCode": "kasc"
+  },
+  {
     "name": "Academic Surfclub",
     "email": "academicsurfclub@vseth.ethz.ch",
     "relationSinceSemester": 100,

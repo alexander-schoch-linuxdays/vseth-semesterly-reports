@@ -15,6 +15,7 @@ use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\HideTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeTrait;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -65,6 +66,13 @@ class Organisation extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $authenticationCode;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true, options={"default": null})
+     */
+    private $lastVisitAt;
 
     /**
      * @var Event[]|ArrayCollection
@@ -163,5 +171,15 @@ class Organisation extends BaseEntity
     public function getSemesterReports()
     {
         return $this->semesterReports;
+    }
+
+    public function setVisitOccurred()
+    {
+        $this->lastVisitAt = new \DateTime();
+    }
+
+    public function getLastVisitAt(): ?DateTime
+    {
+        return $this->lastVisitAt;
     }
 }

@@ -42,15 +42,19 @@ class EvaluationService implements EvaluationServiceInterface
     {
         $organisationEvaluations = $this->getOrganisationEvaluationsForSemester(SemesterType::getCurrentSemester());
 
+        /** @var Organisation[] $organisations */
         $organisations = $this->doctrine->getRepository(Organisation::class)->findActive();
+        $orderedEvaluations = [];
         $missingOrganisations = [];
         foreach ($organisations as $organisation) {
             if (!isset($organisationEvaluations[$organisation->getId()])) {
                 $missingOrganisations[] = $organisation;
+            } else {
+                $orderedEvaluations[] = $organisationEvaluations[$organisation->getId()];
             }
         }
 
-        return new SemesterEvaluation($organisationEvaluations, $missingOrganisations);
+        return new SemesterEvaluation($orderedEvaluations, $missingOrganisations);
     }
 
     /**
