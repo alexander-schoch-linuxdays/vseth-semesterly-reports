@@ -172,4 +172,10 @@ class Organisation extends BaseEntity
     {
         return $this->lastVisitAt;
     }
+
+    /** @noinspection PhpUnused used by deserializer */
+    public function setAuthenticationCode(string $authenticationCode): void
+    {
+        $this->authenticationCode = $authenticationCode;
+    }
 }
