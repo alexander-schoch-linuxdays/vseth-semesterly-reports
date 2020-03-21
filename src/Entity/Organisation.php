@@ -142,14 +142,6 @@ class Organisation extends BaseEntity
     /**
      * @throws \Exception
      */
-    public function setAuthenticationCode(string $authenticationCode)
-    {
-        $this->authenticationCode = $authenticationCode;
-    }
-
-    /**
-     * @throws \Exception
-     */
     public function generateAuthenticationCode()
     {
         $this->authenticationCode = Uuid::uuid4();

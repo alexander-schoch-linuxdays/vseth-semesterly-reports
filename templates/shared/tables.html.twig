@@ -73,7 +73,7 @@
         <tr>
             <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
             <th>{{ "name"|trans({}, "entity_organisation") }}</th>
-            <th>{{ "email"|trans({}, "entity_organisation") }}</th>
+            <th>{{ "login_url"|trans({}, "entity_organisation") }}</th>
             <th class="minimal-width"></th>
         </tr>
         </thead>
@@ -82,8 +82,14 @@
         {% for organisation in organisations %}
             <tr>
                 <td>{{ organisation.relationSinceSemester|semesterFormat }}</td>
-                <td>{{ organisation.name }}</td>
-                <td><a href="mailto:{{ organisation.email }}">{{ organisation.email }}</a></td>
+                <td><a href="mailto:{{ organisation.email }}">{{ organisation.name }}</a></td>
+                <td>
+                    {{ path('login_code', { "code": organisation.authenticationCode}, true) }}
+                    <a class="btn btn-outline-inverse btn-sm pl-2"
+                       href="{{ path("administration_organisation_reset_authentication_code", {"organisation" : organisation.id}) }}">
+                        <i class="fal fa-redo"></i>
+                    </a>
+                </td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary"
