@@ -16,9 +16,12 @@ use App\Entity\Organisation;
 use App\Entity\SemesterReport;
 use App\Form\Type\SemesterType;
 use App\Security\Voter\Base\BaseVoter;
+use App\Service\Interfaces\EmailServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/organisation")
@@ -30,7 +33,7 @@ class OrganisationController extends BaseController
      *
      * @return Response
      */
-    public function viewAction(Request $request, Organisation $organisation)
+    public function viewAction(Request $request, Organisation $organisation, EmailServiceInterface $emailService, TranslatorInterface $translator)
     {
         $this->ensureAccessGranted($organisation);
 
@@ -58,6 +61,22 @@ class OrganisationController extends BaseController
 
             if (!$hasSaved) {
                 $output['submit_semester_report'] = $form->createView();
+            } else {
+                $subject = $translator->trans('report_submitted_email.subject', ['%organisation%' => $organisation->getName()], 'organisation');
+                $body = $translator->trans(
+                    'report_submitted_email.body',
+                    [
+                        '%event_count%' => $organisation->getEvents()->count(),
+                        '%report_comment%' => $semester->getComments(),
+                        '%report_political_events_description%' => $semester->getPoliticalEventsDescription(),
+                        '%organisation_email%' => $organisation->getEmail(),
+                        '%organisation_comment%' => $organisation->getComments(),
+                        '%link%' => $this->generateUrl('administration', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                    ],
+                    'organisation'
+                );
+
+                $emailService->sendEmailToAdministrator($subject, $body);
             }
         }
 
