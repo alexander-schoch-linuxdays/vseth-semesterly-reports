@@ -34,6 +34,12 @@ class OrganisationController extends BaseController
     {
         $this->ensureAccessGranted($organisation);
 
+        // remember last visit
+        if (\in_array('ROLE_ORGANISATION', $this->getUser()->getRoles(), true)) {
+            $organisation->setVisitOccurred();
+            $this->fastSave($organisation);
+        }
+
         $output = [];
 
         $hasSemesterReport = $this->getDoctrine()->getRepository(SemesterReport::class)->findOneBy(['organisation' => $organisation->getId(), 'semester' => SemesterType::getCurrentSemester()]);

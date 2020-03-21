@@ -53,16 +53,6 @@ class OrganisationController extends BaseController
     }
 
     /**
-     * @Route("/{organisation}/events", name="administration_organisations_events")
-     *
-     * @return Response
-     */
-    public function eventsAction(Organisation $organisation)
-    {
-        return $this->render('administration/organisation/events.twig', ['organisation' => $organisation]);
-    }
-
-    /**
      * @Route("/new", name="administration_organisation_new")
      *
      * @return Response

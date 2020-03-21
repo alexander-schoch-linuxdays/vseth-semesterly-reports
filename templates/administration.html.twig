@@ -34,7 +34,7 @@
                             <tr>
                                 <th class="minimal-width">{{ "relation_since_semester"|trans({}, "entity_organisation") }}</th>
                                 <th>{{ "name"|trans({}, "entity_organisation") }}</th>
-                                <th>{{ "entity.plural"|trans({}, "entity_event") }}</th>
+                                <th>{{ "last_visit_at"|trans({}, "entity_organisation") }}</th>
                                 <th>{{ "comments"|trans({}, "entity_organisation") }}</th>
                                 <th class="minimal-width d-print-none"></th>
                             </tr>
@@ -46,7 +46,7 @@
                                     <td>{{ organisation.relationSinceSemester|semesterFormat }}</td>
                                     <td><a href="mailto:{{ organisation.email }}">{{ organisation.name }}</a></td>
                                     <td>
-                                        <a href="{{ path('administration_organisations_events', {'organisation': organisation.id}) }}">{{ organisation.events|length }}</a>
+                                        {{ organisation.lastVisitAt|dateTimeFormat }}
                                     </td>
                                     <td>{{ organisation.comments }}</td>
                                     <td class="d-print-none">
