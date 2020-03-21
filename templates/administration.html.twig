@@ -82,6 +82,10 @@
                             {% if evaluation.organisation.comments is not empty %}
                                 | <i>{{ evaluation.organisation.comments }}</i>
                             {% endif %}
+                            | <a class="btn btn-sm d-print-none btn-outline-inverse"
+                               href="{{ path("organisation_view", {"organisation" : evaluation.organisation.id}) }}">
+                                <i class="fal fa-user"></i>
+                            </a>
                         </div>
                         <div class="card-body">
                             <h3 class="mt-0 mb-4">{{ evaluation.organisation.name }}</h3>
@@ -90,14 +94,14 @@
                                     <p>
                                         <b>{{ "political_events_description"|trans({}, "entity_semester_report") }}</b>
                                         <br/>
-                                        {{ evaluation.semesterReport.politicalEventsDescription|default("-") }}
+                                        {{ evaluation.semesterReport.politicalEventsDescription|default("-")|nl2br }}
                                     </p>
                                 </div>
                                 <div class="col-md-6">
                                     <p>
                                         <b>{{ "comments"|trans({}, "entity_semester_report") }}</b>
                                         <br/>
-                                        {{ evaluation.semesterReport.comments|default("-") }}
+                                        {{ evaluation.semesterReport.comments|default("-")|nl2br }}
                                     </p>
                                 </div>
                             </div>
@@ -132,12 +136,12 @@
                                     {% if event.nameDe is not empty or event.descriptionDe is not empty %}
                                         <div class="col-md-6">
                                             <h4>{{ event.nameDe }}</h4>
-                                            <p>{{ event.descriptionDe }}</p>
+                                            <p>{{ event.descriptionDe|nl2br }}</p>
                                         </div>
                                     {% endif %}
                                     <div class="col-md-6">
                                         <h4>{{ event.nameEn }}</h4>
-                                        <p>{{ event.descriptionEn }}</p>
+                                        <p>{{ event.descriptionEn|nl2br }}</p>
                                     </div>
                                 </div>
                             {% endfor %}
