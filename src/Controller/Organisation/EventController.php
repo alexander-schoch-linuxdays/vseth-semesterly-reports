@@ -16,6 +16,7 @@ use App\Entity\Event;
 use App\Entity\Organisation;
 use App\Form\Type\SemesterType;
 use App\Model\Breadcrumb;
+use App\Security\Voter\Base\BaseVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,6 +80,7 @@ class EventController extends BaseController
      */
     public function copyAction(Request $request, Organisation $organisation, Event $event, TranslatorInterface $translator)
     {
+        $this->ensureAccessGranted($event);
         $clonedEvent = clone $event;
 
         return $this->displayNewForm($request, $translator, $organisation, $clonedEvent);
@@ -91,6 +93,8 @@ class EventController extends BaseController
      */
     public function editAction(Organisation $organisation, Request $request, Event $event, TranslatorInterface $translator)
     {
+        $this->ensureAccessGranted($event);
+
         //process form
         $myForm = $this->handleUpdateForm(
             $request,
@@ -116,6 +120,8 @@ class EventController extends BaseController
      */
     public function removeAction(Organisation $organisation, Request $request, Event $event)
     {
+        $this->ensureAccessGranted($event);
+
         //process form
         $form = $this->handleDeleteForm($request, $event);
         if ($form === null) {
@@ -144,6 +150,11 @@ class EventController extends BaseController
         }
 
         return true;
+    }
+
+    private function ensureAccessGranted(Event $event)
+    {
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
     }
 
     /**

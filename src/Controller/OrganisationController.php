@@ -85,8 +85,8 @@ class OrganisationController extends BaseController
         return $this->render('organisation/view.html.twig', $output);
     }
 
-    private function ensureAccessGranted(Organisation $event)
+    private function ensureAccessGranted(Organisation $organisation)
     {
-        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $organisation);
     }
 }
