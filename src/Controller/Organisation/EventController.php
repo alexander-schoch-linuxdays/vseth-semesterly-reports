@@ -39,6 +39,8 @@ class EventController extends BaseController
      */
     public function newAction(Organisation $organisation, Request $request, TranslatorInterface $translator)
     {
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $organisation);
+
         //create the event
         $event = new Event();
         $event->setSemester(SemesterType::getCurrentSemester());
