@@ -17,6 +17,7 @@ use App\Entity\Organisation;
 use App\Form\Type\SemesterType;
 use App\Model\Breadcrumb;
 use App\Security\Voter\Base\BaseVoter;
+use App\Security\Voter\EventVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,12 +44,28 @@ class EventController extends BaseController
 
         //create the event
         $event = new Event();
-        $event->setSemester(SemesterType::getCurrentSemester());
-        $event->setOrganisation($organisation);
-        $event->setLocation('');
-        $event->setRevenue(0);
-        $event->setNeedFinancialSupport(false);
-        $event->setStartDate(new \DateTime('today 18:00 + 2 weeks'));
+        if ($request->query->has('copy-id')) {
+            /** @var Event $cloneEvent */
+            $cloneEvent = $this->getDoctrine()->getRepository(Event::class)->find($request->query->get('copy-id'));
+            $this->denyAccessUnlessGranted(EventVoter::VIEW, $cloneEvent);
+            $event->setOrganisation($cloneEvent->getOrganisation());
+            $event->setSemester($cloneEvent->getSemester());
+            $event->setNameDe($cloneEvent->getNameDe());
+            $event->setNameEn($cloneEvent->getNameEn());
+            $event->setDescriptionDe($cloneEvent->getDescriptionDe());
+            $event->setDescriptionEn($cloneEvent->getDescriptionEn());
+            $event->setLocation($cloneEvent->getLocation());
+            $event->setStartDate($cloneEvent->getStartDate());
+            $event->setEndDate($cloneEvent->getEndDate());
+            $event->setRevenue($cloneEvent->getRevenue());
+            $event->setExpenditure($cloneEvent->getExpenditure());
+            $event->setNeedFinancialSupport($cloneEvent->isNeedFinancialSupport());
+            $event->setShowInCalender($cloneEvent->getShowInCalender());
+        } else {
+            $event->setSemester(SemesterType::getCurrentSemester());
+            $event->setOrganisation($organisation);
+            $event->setStartDate(new \DateTime('today 18:00 + 2 weeks'));
+        }
 
         return $this->displayNewForm($request, $translator, $organisation, $event);
     }
@@ -76,26 +93,13 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/{event}/clone", name="organisation_event_copy")
-     *
-     * @return Response
-     */
-    public function copyAction(Request $request, Organisation $organisation, Event $event, TranslatorInterface $translator)
-    {
-        $this->ensureAccessGranted($event);
-        $clonedEvent = clone $event;
-
-        return $this->displayNewForm($request, $translator, $organisation, $clonedEvent);
-    }
-
-    /**
      * @Route("/{event}/edit", name="organisation_event_edit")
      *
      * @return Response
      */
     public function editAction(Organisation $organisation, Request $request, Event $event, TranslatorInterface $translator)
     {
-        $this->ensureAccessGranted($event);
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
 
         //process form
         $myForm = $this->handleUpdateForm(
@@ -122,7 +126,7 @@ class EventController extends BaseController
      */
     public function removeAction(Organisation $organisation, Request $request, Event $event)
     {
-        $this->ensureAccessGranted($event);
+        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
 
         //process form
         $form = $this->handleDeleteForm($request, $event);
@@ -152,11 +156,6 @@ class EventController extends BaseController
         }
 
         return true;
-    }
-
-    private function ensureAccessGranted(Event $event)
-    {
-        $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
     }
 
     /**

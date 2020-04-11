@@ -108,7 +108,7 @@ class Event extends BaseEntity
      *
      * @ORM\Column(type="boolean")
      */
-    private $needFinancialSupport;
+    private $needFinancialSupport = false;
 
     /**
      * @var Organisation
@@ -199,7 +199,7 @@ class Event extends BaseEntity
         $this->descriptionEn = $descriptionEn;
     }
 
-    public function getLocation(): string
+    public function getLocation(): ?string
     {
         return $this->location;
     }
