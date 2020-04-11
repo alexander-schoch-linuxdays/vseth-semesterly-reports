@@ -80,6 +80,7 @@ class EvaluationService implements EvaluationServiceInterface
             $eventsByOrganisation[$id][] = $event;
         }
 
+        /** @var SemesterReport[] $semesterReports */
         $semesterReports = $this->doctrine->getRepository(SemesterReport::class)->findBy(['semester' => $semester]);
         $organisationEvaluations = [];
         foreach ($semesterReports as $semesterReport) {
